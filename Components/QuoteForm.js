@@ -1,9 +1,11 @@
 // QuoteForm.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SuppDrop from '@/Components/SuppDrop';
 import axios from 'axios';
 
 const QuoteForm = ({ onChange }) => {
+
+  // saving data from input to formData
   const [formData, setFormData] = useState({
     a_quotation_number: '',
     b_date: '',
@@ -18,6 +20,14 @@ const QuoteForm = ({ onChange }) => {
     k_price: '',
   });
 
+  // state to check if the quotation number exists
+  const [isQuotationNumberExists, setIsQuotationNumberExists] = useState(false);
+
+  useEffect(() => {
+    // Check quotation number existence when formData.a_quotation_number changes
+    checkQuotationNumberExists();
+  }, [formData.a_quotation_number]);
+
   const handleChange = (e, name) => {
     const value = e.target.value;
     setFormData((prevData) => ({
@@ -26,13 +36,38 @@ const QuoteForm = ({ onChange }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const checkQuotationNumberExists = async () => {
+    try {
+      const response = await axios.post('http://localhost:8088/api/quote/checkQuotationNumber', {
+        quotationNumber: formData.a_quotation_number,
+      });
+
+      setIsQuotationNumberExists(response.data.exists);
+    } catch (error) {
+      console.error('Error checking quotation number:', error);
+    }
+  };
+
+
+  // call after submit the form
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    // Check if quotation number already exists before submitting
+    if (isQuotationNumberExists) {
+      // Show a message or take appropriate action
+      alert('Quotation number already exists. Please choose a different one.');
+      return;
+    }
+
+    // Continue with form submission
+    console.log('Form submitted:', formData);
     saveFormDataToDatabase(formData);
   };
 
-  
+
+  // method/funtion to save formData into database using api 
+
   const saveFormDataToDatabase = (data) => {
     const apiEndpoint = 'http://localhost:8088/api/quote/add';
 
@@ -45,23 +80,27 @@ const QuoteForm = ({ onChange }) => {
       });
   };
 
-  return (
+//, textAlign: 'right', paddingRight: '20px' 
+  
+return (
     <div>
       <form onSubmit={handleSubmit}>
       <div className="master-data d-flex my-2 justify-between">
 
-      <div className="data-1">
-    <label className="align-middle">Quote Number:</label>
-   
-    <input
-                    type="text"
-                    name="a_quotation_number"
-                    placeholder='ex: Quote-01-001'
-                    value={formData.a_quotation_number}
-                    onChange={(e) => handleChange(e, 'a_quotation_number')}
-                    required
-                />
-  </div>
+      <div className="data-1 flex">
+          <label className="align-middle">Quote Number:</label>
+          <div className='text-center'>
+          <input
+            type="text"
+            name="a_quotation_number"
+            placeholder='ex: Quote-001'
+            value={formData.a_quotation_number}
+            onChange={(e) => handleChange(e, 'a_quotation_number')}
+            required
+          />
+          {isQuotationNumberExists && <div style={{ color: 'red'}}>Quotation number already exists!</div>}
+          </div>
+        </div>
 
   <div className="data-1 d-flex">
 <label>Quotation Date:</label>
@@ -93,7 +132,7 @@ const QuoteForm = ({ onChange }) => {
 <input
                     type="text"
                     name="d_suppName"
-                    placeholder="ex: ITC-01-001"
+                    placeholder="ex: ITC"
                     value={formData.d_suppName}
                     onChange={(e) => handleChange(e, 'd_suppName')}
                     required
@@ -235,6 +274,7 @@ const getCurrentDate = () => {
   return `${year}-${month}-${day}`;
 };
 
+// refresh page after cancel button to clear everything in the  form
 const reset = (e) => {
   //alert('Form submission canceled');
   window.location.reload(false);

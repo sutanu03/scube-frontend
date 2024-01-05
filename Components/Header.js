@@ -1,7 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 
-function BasicExample() {
+function Header() {
+
+  // header component
+
   return (
     <div className="h-16 p-4 text-white bg-blue-800 flex items-center justify-between">
       
@@ -21,4 +24,4 @@ function BasicExample() {
   );
 }
 
-export default BasicExample;
+export default Header;
