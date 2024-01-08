@@ -1,0 +1,11 @@
+// 1. Quote number should be unique ✅
+// 2. Quote Number should be generated using prefix
+// 3. Submission date should be current date ✅
+// 4. Quotation date should not be a future date (only past or current) ✅
+// 5. product code in dropdown to prevent wrong input ✅
+// 6. Rate Qnty Misc and Price should be positive value ✅
+// 7. prevent refresh from submitting repeated form ✅
+// 8. shouldn't submit form with repeated quotation number ✅
+// 9. shouldn't submit form with any empty value ✅
+// 10. Rate * Qnty + Misc = Price (readonly)
+// 11. supplier name should be readonly and dependent over supplierCode

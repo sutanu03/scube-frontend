@@ -1,9 +1,12 @@
 // QuoteForm.js
 import React, { useState, useEffect } from 'react';
 import SuppDrop from '@/Components/SuppDrop';
+import ProdDrop from '@/Components/ProdDrop'
 import axios from 'axios';
 
 const QuoteForm = ({ onChange }) => {
+
+  // unique quotation number 
 
   // saving data from input to formData
   const [formData, setFormData] = useState({
@@ -93,7 +96,7 @@ return (
           <input
             type="text"
             name="a_quotation_number"
-            placeholder='ex: Quote-001'
+            placeholder='pattern: Quote-00?'
             value={formData.a_quotation_number}
             onChange={(e) => handleChange(e, 'a_quotation_number')}
             required
@@ -104,7 +107,7 @@ return (
 
   <div className="data-1 d-flex">
 <label>Quotation Date:</label>
-<input type="date" name="b_date" value={formData.b_date} onChange={(e) => handleChange(e, 'b_date')} required/>
+<input type="date" name="b_date" value={formData.b_date} onChange={(e) => handleChange(e, 'b_date')} max={new Date().toISOString().split('T')[0]} required/>
 </div>
 
 <div className="data-1">
@@ -171,10 +174,8 @@ return (
 
 
                  <SuppDrop onChange={(e) => handleChange(e, 'c_supplierCode')} />
-                
-                 */}
-         
-                <input
+
+                 <input
                     className="select-input"
                     type="text"
                     name="f_productCode"
@@ -182,7 +183,11 @@ return (
                     value={formData.f_productCode}
                     onChange={(e) => handleChange(e, 'f_productCode')}
                     required
-                />  
+                /> 
+                
+                 */}
+
+                <ProdDrop onChange={(value) => handleChange({ target: { value } }, 'f_productCode')} /> 
          
 
              </td>
@@ -200,8 +205,9 @@ return (
   <td className="text-center align-middle">
   <input
                     className="select-input"
-                    type="text"
+                    type="number"
                     name="h_rate"
+                    min="0" oninput="validity.valid||(value='');"
                     placeholder="ex: 499"
                     value={formData.h_rate}
                     onChange={(e) => handleChange(e, 'h_rate')}
@@ -211,8 +217,9 @@ return (
   <td className="text-center align-middle">
   <input
                     className="select-input"
-                    type="text"
+                    type="number"
                     name="i_qnty"
+                    min="0" oninput="validity.valid||(value='');"
                     placeholder="ex: 10"
                     value={formData.i_qnty}
                     onChange={(e) => handleChange(e, 'i_qnty')}
@@ -222,7 +229,8 @@ return (
   <td className="text-center align-middle">
   <input
                     className="select-input"
-                    type="text"
+                    type="number"
+                    min="0" oninput="validity.valid||(value='');"
                     name="j_misc"
                     placeholder="Any extra"
                     value={formData.j_misc}
@@ -234,7 +242,8 @@ return (
   <td className="text-center align-middle">
   <input
                     className="select-input"
-                    type="text"
+                    type="number"
+                    min="0" oninput="validity.valid||(value='');"
                     name="k_price"
                     placeholder="ex: 499"
                     value={formData.k_price}

@@ -24,7 +24,6 @@ const SuppDrop = ({ onChange }) => {
   return (
     <>
       <select onChange={handleSelectChange}>
-        <option value="0">Select</option>
         {supplier.map(supplier => (
           <option value={supplier.a_supplierCode} key={supplier.a_supplierCode}>
             {supplier.a_supplierCode}

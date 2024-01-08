@@ -78,6 +78,14 @@
     width: 200px;
     border: 1px solid black;
   }
+
+  /* Chrome, Safari, Edge, Opera for hidden arrows in input */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
   table {
     width: 90%;
   }
