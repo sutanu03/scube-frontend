@@ -1,14 +1,9 @@
-// ProductDrop.js
+// ProdDrop.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const SuppDrop = ({ onChange }) => {
-
-  // state to save the value of Selected product
-  
+const ProdDrop = ({ onChange }) => {
   const [product, setProduct] = useState([]);
-
-  // getting Product.a_product_Code from database using axios
 
   useEffect(() => {
     axios.get('http://localhost:8088/api/product/read/all')
@@ -18,7 +13,7 @@ const SuppDrop = ({ onChange }) => {
 
   const handleSelectChange = (e) => {
     const selectedProductCode = e.target.value;
-    onChange(selectedProductCode);
+    onChange(selectedProductCode); // Pass the selected product code
   };
 
   return (
@@ -34,4 +29,4 @@ const SuppDrop = ({ onChange }) => {
   );
 };
 
-export default SuppDrop;
+export default ProdDrop;

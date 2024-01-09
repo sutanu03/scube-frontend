@@ -31,11 +31,13 @@ const QuoteForm = ({ onChange }) => {
     checkQuotationNumberExists();
   }, [formData.a_quotation_number]);
 
-  const handleChange = (e, name) => {
+  const handleChange = (e, name, name2) => {
     const value = e.target.value;
+    const value2 = e.target.value2;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
+      [name2]: value2,
     }));
   };
 
@@ -77,11 +79,19 @@ const QuoteForm = ({ onChange }) => {
     axios.post(apiEndpoint, data)
       .then(response => {
         console.log('Form data saved successfully:', response.data);
+        resetFormData();
+      //  reset();
       })
       .catch(error => {
         console.error('Error saving form data:', error);
       });
   };
+
+  function resetFormData() {
+    window.location.reload(false);
+    alert("Quotation created!");
+  }
+  
 
 //, textAlign: 'right', paddingRight: '20px' 
   
@@ -187,7 +197,7 @@ return (
                 
                  */}
 
-                <ProdDrop onChange={(value) => handleChange({ target: { value } }, 'f_productCode')} /> 
+              <ProdDrop onChange={(productCode) => handleChange({ target: { value: productCode } }, 'f_productCode')} />
          
 
              </td>
@@ -207,7 +217,7 @@ return (
                     className="select-input"
                     type="number"
                     name="h_rate"
-                    min="0" oninput="validity.valid||(value='');"
+                    min="1"
                     placeholder="ex: 499"
                     value={formData.h_rate}
                     onChange={(e) => handleChange(e, 'h_rate')}
@@ -219,7 +229,7 @@ return (
                     className="select-input"
                     type="number"
                     name="i_qnty"
-                    min="0" oninput="validity.valid||(value='');"
+                    min="1"
                     placeholder="ex: 10"
                     value={formData.i_qnty}
                     onChange={(e) => handleChange(e, 'i_qnty')}
@@ -230,7 +240,7 @@ return (
   <input
                     className="select-input"
                     type="number"
-                    min="0" oninput="validity.valid||(value='');"
+                    min="0"
                     name="j_misc"
                     placeholder="Any extra"
                     value={formData.j_misc}
@@ -243,7 +253,7 @@ return (
   <input
                     className="select-input"
                     type="number"
-                    min="0" oninput="validity.valid||(value='');"
+                    min="1"
                     name="k_price"
                     placeholder="ex: 499"
                     value={formData.k_price}
@@ -257,7 +267,7 @@ return (
 
 </div>
 <div className="flex text-center align-center justify-center">
-          <button className="bttn" onClick={reset}>
+          <button className="bttn" onClick={resetPage}>
             Cancel
           </button>
           <button id="quotationEntryButton" className="bttn" type="submit">
@@ -284,7 +294,7 @@ const getCurrentDate = () => {
 };
 
 // refresh page after cancel button to clear everything in the  form
-const reset = (e) => {
+const resetPage = (e) => {
   //alert('Form submission canceled');
   window.location.reload(false);
 };

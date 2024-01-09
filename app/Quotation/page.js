@@ -7,7 +7,7 @@ const page = () => {
 
   return (
     <div>    
-           
+      
        <QuoteForm />
 
     </div>
