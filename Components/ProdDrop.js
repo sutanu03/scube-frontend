@@ -21,7 +21,7 @@ const ProdDrop = ({ onChange }) => {
       <select onChange={handleSelectChange}>
         {product.map(product => (
           <option value={product.a_prod_code} key={product.a_prod_code}>
-            {product.a_prod_code}
+            {product.a_prod_code} -- {product.b_prod_name}
           </option>
         ))}
       </select>

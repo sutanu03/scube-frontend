@@ -266,12 +266,12 @@ return (
           </table>
 
 </div>
-<div className="flex text-center align-center justify-center">
+<div className="flex text-center align-center justify-end">
           <button className="bttn" onClick={resetPage}>
             Cancel
           </button>
           <button id="quotationEntryButton" className="bttn" type="submit">
-            Submit
+            Save
           </button>
         </div>
       </form>
