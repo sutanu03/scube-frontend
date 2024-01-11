@@ -9,3 +9,89 @@
 // 9. shouldn't submit form with any empty value ✅
 // 10. Rate * Qnty + Misc = Price (readonly)
 // 11. supplier name should be readonly and dependent over supplierCode
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+Here is an example of a Spring Boot project that implements a one-to-many relationship between two tables:
+@Entity
+public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String title;
+    private String content;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
+
+    // getters and setters
+}
+
+@Entity
+public class Comment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
+
+    // getters and setters
+}
+
+public interface PostRepository extends JpaRepository<Post, Long> {
+}
+
+public interface CommentRepository extends JpaRepository<Comment, Long> {
+}
+
+@RestController
+public class PostController {
+    private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
+
+    public PostController(PostRepository postRepository, CommentRepository commentRepository) {
+        this.postRepository = postRepository;
+        this.commentRepository = commentRepository;
+    }
+
+    @PostMapping("/posts")
+    public Post createPost(@RequestBody Post post) {
+        return postRepository.save(post);
+    }
+
+    @PostMapping("/posts/{postId}/comments")
+    public Comment createComment(@PathVariable Long postId, @RequestBody Comment comment) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new ResourceNotFoundException("Post not found with id :" + postId));
+        comment.setPost(post);
+        return commentRepository.save(comment);
+    }
+}
+Use code with caution.
+Learn more
+To send values to the database using the API endpoints, you can use the following curl commands:
+curl -X POST http://localhost:8080/posts -H "Content-Type: application/json" -d '{
+    "title": "My first post",
+    "content": "This is my first post."
+}'
+
+curl -X POST http://localhost:8080/posts/1/comments -H "Content-Type: application/json" -d '{
+    "content": "This is my first comment."
+}'
+Use code with caution.
+Learn more
+These curl commands will create a new post and a new comment, respectively. The new post and comment will be persisted in the database.
+
+*/

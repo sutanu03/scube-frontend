@@ -8,7 +8,7 @@ const QuoteForm = ({ onChange }) => {
 
   // unique quotation number 
 
-  // saving data from input to formData
+  // saving data from input to Master formData
   const [formData, setFormData] = useState({
     a_quotation_number: '',
     b_date: '',
@@ -22,6 +22,7 @@ const QuoteForm = ({ onChange }) => {
     j_misc: '',
     k_price: '',
   });
+
 
   // state to check if the quotation number exists
   const [isQuotationNumberExists, setIsQuotationNumberExists] = useState(false);
@@ -263,6 +264,7 @@ return (
   </td>
   </tr>
             </tbody>
+            
           </table>
 
 </div>
