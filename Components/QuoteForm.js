@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import SuppDrop from '@/Components/SuppDrop';
 import ProdDrop from '@/Components/ProdDrop'
 import axios from 'axios';
+import AddDeleteTableRows from '@/Components/AddDeleteTableRows';
 
 const QuoteForm = ({ onChange }) => {
 
@@ -263,8 +264,16 @@ return (
                 />
   </td>
   </tr>
+  {/*
+  <tr>
+  <AddDeleteTableRows />
+  </tr>
+                */}
             </tbody>
             
+
+            
+
           </table>
 
 </div>
