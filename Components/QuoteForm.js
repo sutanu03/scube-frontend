@@ -141,7 +141,7 @@ return (
           <label>Supplier Code:</label>
           <SuppDrop onChange={(value) => handleChange({ target: { value } }, 'c_supplierCode')} />
         </div>
-
+{/*}
         <div className="data-1">
 <label>Supplier Name:</label>
 <input
@@ -153,6 +153,7 @@ return (
                     required
                 />
   </div>
+*/}
   </div>
 
 
@@ -277,7 +278,7 @@ return (
           </table>
 
 </div>
-<div className="flex text-center align-center justify-end">
+<div className="flex text-center align-center justify-end fixed-bottom">
           <button className="bttn" onClick={resetPage}>
             Cancel
           </button>
