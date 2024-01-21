@@ -25,13 +25,11 @@
   
   .master-data {
     width: 100%;
-    padding: 5px;
     display: flex;
     justify-content: space-between;
   }
   
   .master-data input {
-    width: 280px;
     justify-content: space-between;
     padding: 5px 10px;
   }
@@ -49,7 +47,7 @@
   }
   
   input {
-    width: 250px;
+    width: 200px;
     height: 40px;
     border-radius: 6px;
     text-align: center;
@@ -63,15 +61,11 @@
   }
   
   select {
-    width: 280px;
+    width: 200px;
     height: 40px;
     border-radius: 6px;
     text-align: center;
     border: 1px solid #0047ab;
-  }
-  
-  #description input {
-    width: 400px;
   }
   
   .select-input {

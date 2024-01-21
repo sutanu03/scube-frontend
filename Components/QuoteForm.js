@@ -11,6 +11,13 @@ const QuoteForm = ({ onChange }) => {
 
   // saving data from input to Master formData
   const [formData, setFormData] = useState({
+    quotation_number: '',
+    q_date: '',
+    supp_code: '',
+    submission_date: getCurrentDate(),
+  });
+
+  const [formData2, setFormData2] = useState({
     a_quotation_number: '',
     b_date: '',
     c_supplierCode: '',
@@ -100,47 +107,49 @@ const QuoteForm = ({ onChange }) => {
 return (
     <div>
       <form onSubmit={handleSubmit}>
-      <div className="master-data d-flex my-2 justify-between">
+      <div className="master-data d-flex m-2 justify-around text-justify align-middle">
 
-      <div className="data-1 flex">
+      <div className="data-1 flex w-1/4">
           <label className="align-middle">Quote Number:</label>
           <div className='text-center'>
           <input
             type="text"
-            name="a_quotation_number"
+            name="quotation_number"
             placeholder='pattern: Quote-00?'
             value={formData.a_quotation_number}
-            onChange={(e) => handleChange(e, 'a_quotation_number')}
+            onChange={(e) => handleChange(e, 'quotation_number')}
             required
           />
           {isQuotationNumberExists && <div style={{ color: 'red'}}>Quotation number already exists!</div>}
           </div>
         </div>
 
-  <div className="data-1 d-flex">
+  <div className="data-1 d-flex w-1/4">
 <label>Quotation Date:</label>
 <input type="date" name="b_date" value={formData.b_date} onChange={(e) => handleChange(e, 'b_date')} max={new Date().toISOString().split('T')[0]} required/>
 </div>
 
-<div className="data-1">
-          <label htmlFor="e_submission_dateo">Submission Date:</label>
+<div className="data-1 d-flex w-1/4">
+          <label htmlFor="submission_date">Submission Date:</label>
           <input
         type="text"
-        id="e_submission_dateo"
-        name="e_submission_dateo"
-        value={formData.e_submission_dateo}
-        onChange={(e) => handleChange(e, 'e_submission_dateo')}
+        id="submission_date"
+        name="submission_date"
+        className='outline-none border-transparent focus:border-transparent focus:ring-0 w-1/3'
+        value={formData.submission_date}
+        onChange={(e) => handleChange(e, 'submission_date')}
         readOnly // Make the current date input read-only
         required
       />
         </div>
-        </div> 
 
-  <div className="master-data d-flex my-2 justify-between">
-    <div className="data-1 d-flex">
+        <div className="data-1 d-flex w-1/4">
           <label>Supplier Code:</label>
           <SuppDrop onChange={(value) => handleChange({ target: { value } }, 'c_supplierCode')} />
         </div>
+
+        </div> 
+    
 {/*}
         <div className="data-1">
 <label>Supplier Name:</label>
@@ -154,7 +163,6 @@ return (
                 />
   </div>
 */}
-  </div>
 
 
 
@@ -167,7 +175,6 @@ return (
   <thead>
 <tr className="table-active">
   <th scope="col">Item Code</th>
-  <th scope="col">Description</th>
   <th scope="col">Rate</th>
   <th scope="col">Quantity</th>
   <th scope="col">Misc Cost</th>
@@ -197,14 +204,7 @@ return (
                     onChange={(e) => handleChange(e, 'f_productCode')}
                     required
                 /> 
-                
-                 */}
-
-              <ProdDrop onChange={(productCode) => handleChange({ target: { value: productCode } }, 'f_productCode')} />
-         
-
-             </td>
-  <td className="text-center align-middle" id="description">
+                  <td className="text-center align-middle" id="description">
         <input
                     className="select-input"
                     type="text"
@@ -215,6 +215,14 @@ return (
                     required
                 />
   </td>
+                
+                 */}
+
+              <ProdDrop onChange={(productCode) => handleChange({ target: { value: productCode } }, 'f_productCode')} />
+         
+
+             </td>
+
   <td className="text-center align-middle">
   <input
                     className="select-input"
