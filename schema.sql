@@ -1,6 +1,6 @@
 /* 
 user table
-
+*/
 create table user (
 email_id varchar(255) not null, 
 first_name varchar(255), 
@@ -14,7 +14,7 @@ primary key (email_id)
 
 /* 
 assign-user table
-
+*/
 create table assign_user (
 email varchar(255) not null, 
 name varchar(255), 
@@ -56,8 +56,8 @@ quotation table
 */
 create table quotation (
 quotation_number varchar(255) not null, 
-q_date varchar(255) not null, 
-submission_date varchar(255) not null,
+q_date date not null, 
+submission_date date not null,
 supp_code varchar(255) not null, 
 primary key (quotation_number),
 FOREIGN KEY (supp_code) REFERENCES supplier (supp_code)
@@ -70,13 +70,80 @@ create table quotation_detail (
 quote_details_id bigint not null auto_increment, 
 quotation_number varchar(255) not null,
 prod_code varchar(255) not null,
-rate varchar(255) not null,
-qnty varchar(255) not null,
-misc varchar(255), 
-price varchar(255) not null,  
+rate bigint not null,
+qnty bigint not null,
+misc bigint, 
+price bigint not null,  
 primary key (quote_details_id),
 FOREIGN KEY (prod_code) REFERENCES product (prod_code),
 FOREIGN KEY (quotation_number) REFERENCES quotation (quotation_number)
+);
+
+
+/* 
+purchase order table
+*/
+create table po (
+po_number varchar(255) not null, 
+quotation_number varchar(255) not null, 
+supp_code varchar(255) not null, 
+po_date date not null, 
+delivery_date date,
+total_amt bigint not null,
+
+primary key (po_number),
+FOREIGN KEY (quotation_number) REFERENCES quotation (quotation_number),
+FOREIGN KEY (supp_code) REFERENCES supplier (supp_code)
+);
+
+/* 
+purchase order - detail table
+*/
+create table po_detail (
+po_details_id bigint not null auto_increment, 
+po_number varchar(255) not null,
+prod_code varchar(255) not null,
+rate bigint not null,
+qnty bigint not null,
+price bigint not null,  
+primary key (po_details_id),
+FOREIGN KEY (po_number) REFERENCES po (po_number),
+FOREIGN KEY (prod_code) REFERENCES product (prod_code)
+);
+
+
+
+/* 
+invoice table
+*/
+create table invoice (
+invo_number varchar(255) not null, 
+po_number varchar(255) not null, 
+supp_code varchar(255) not null, 
+invo_date date not null, 
+challan_no varchar(255) not null, 
+challan_date date not null, 
+po_date date not null,
+total_amt bigint not null,
+
+primary key (invo_number),
+FOREIGN KEY (po_number) REFERENCES po (po_number),
+FOREIGN KEY (supp_code) REFERENCES supplier (supp_code)
+);
+
+/* 
+invoice - detail table
+*/
+create table invoice_detail (
+invo_details_id bigint not null auto_increment, 
+invo_number varchar(255) not null,
+prod_code varchar(255) not null,
+rate bigint not null,
+qnty bigint not null,
+price bigint not null,  
+primary key (invo_details_id),
+FOREIGN KEY (invo_number) REFERENCES invoice (invo_number),
+FOREIGN KEY (prod_code) REFERENCES product (prod_code)
 );
 
 /* 
