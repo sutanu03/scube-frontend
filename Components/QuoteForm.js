@@ -1,9 +1,10 @@
 // QuoteForm.js
 import React, { useState, useEffect } from 'react';
-import SuppDrop from '@/Components/SuppDrop';
 import ProdDrop from '@/Components/ProdDrop'
+import SuppDrop from '@/Components/SuppDrop';
 import axios from 'axios';
 import AddDeleteTableRows from '@/Components/AddDeleteTableRows';
+import TableRow from '@/Components/TableRow';
 
 const QuoteForm = ({ onChange }) => {
 
@@ -18,42 +19,38 @@ const QuoteForm = ({ onChange }) => {
   });
 
   const [formData2, setFormData2] = useState({
-    a_quotation_number: '',
-    b_date: '',
-    c_supplierCode: '',
-    d_suppName: '',
-    e_submission_dateo: getCurrentDate(),
-    f_productCode: '',
-    g_description: '',
-    h_rate: '',
-    i_qnty: '',
-    j_misc: '',
-    k_price: '',
+    quotation_number: '',
+    prod_code: '',
+    rate: '',
+    qnty: '',
+    misc: '',
+    price: '',
   });
-
 
   // state to check if the quotation number exists
   const [isQuotationNumberExists, setIsQuotationNumberExists] = useState(false);
 
   useEffect(() => {
-    // Check quotation number existence when formData.a_quotation_number changes
+    // Check quotation number existence when formData.quotation_number changes
     checkQuotationNumberExists();
-  }, [formData.a_quotation_number]);
+  }, [formData.quotation_number]);
 
-  const handleChange = (e, name, name2) => {
+  const handleChange = (e, name) => {
     const value = e.target.value;
-    const value2 = e.target.value2;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
-      [name2]: value2,
+    }));
+    setFormData2((prevData) => ({
+      ...prevData,
+      [name]: value,
     }));
   };
 
   const checkQuotationNumberExists = async () => {
     try {
       const response = await axios.post('http://localhost:8088/api/quote/checkQuotationNumber', {
-        quotationNumber: formData.a_quotation_number,
+        quotationNumber: formData.quotation_number,
       });
 
       setIsQuotationNumberExists(response.data.exists);
@@ -77,6 +74,8 @@ const QuoteForm = ({ onChange }) => {
     // Continue with form submission
     console.log('Form submitted:', formData);
     saveFormDataToDatabase(formData);
+    formData2.quotation_number = formData.quotation_number;
+    saveFormDataToDatabase2(formData2);
   };
 
 
@@ -96,6 +95,20 @@ const QuoteForm = ({ onChange }) => {
       });
   };
 
+  const saveFormDataToDatabase2 = (data) => {
+    const apiEndpoint = 'http://localhost:8088/api/quote/details/add';
+
+    axios.post(apiEndpoint, data)
+      .then(response => {
+        console.log('Detail saved successfully:', response.data);
+        resetFormData();
+      //  reset();
+      })
+      .catch(error => {
+        console.error('Error saving form data:', error);
+      });
+  };
+
   function resetFormData() {
     window.location.reload(false);
     alert("Quotation created!");
@@ -107,16 +120,17 @@ const QuoteForm = ({ onChange }) => {
 return (
     <div>
       <form onSubmit={handleSubmit}>
-      <div className="master-data d-flex m-2 justify-around text-justify align-middle">
+      <div className="master-data d-flex m-2 justify-between text-justify p-2">
 
-      <div className="data-1 flex w-1/4">
-          <label className="align-middle">Quote Number:</label>
+      <div className="data-1 flex w-1/4 align-middle">
+      <label>Quote Number:</label>
           <div className='text-center'>
+          
           <input
             type="text"
             name="quotation_number"
             placeholder='pattern: Quote-00?'
-            value={formData.a_quotation_number}
+            value={formData.quotation_number}
             onChange={(e) => handleChange(e, 'quotation_number')}
             required
           />
@@ -145,93 +159,44 @@ return (
 
         <div className="data-1 d-flex w-1/4">
           <label>Supplier Code:</label>
-          <SuppDrop onChange={(value) => handleChange({ target: { value } }, 'c_supplierCode')} />
+          <SuppDrop onChange={(value) => handleChange({ target: { value } }, 'supp_code')} />
         </div>
 
         </div> 
-    
-{/*}
-        <div className="data-1">
-<label>Supplier Name:</label>
-<input
-                    type="text"
-                    name="d_suppName"
-                    placeholder="ex: ITC"
-                    value={formData.d_suppName}
-                    onChange={(e) => handleChange(e, 'd_suppName')}
-                    required
-                />
-  </div>
-*/}
-
-
-
 <hr/>
 
-<div className="header-text2 text-center">Details</div>
 
-<div className="table-div p-2">
+<div>
+        <div className="header-text2 text-center justify-center d-flex p-2">
+            <h1>Details</h1>
+            </div>
+<div className="table-div p-2 overflow-scroll">
   <table className="table table-bordered" id="myTable">
-  <thead>
-<tr className="table-active">
-  <th scope="col">Item Code</th>
-  <th scope="col">Rate</th>
-  <th scope="col">Quantity</th>
-  <th scope="col">Misc Cost</th>
-  <th scope="col">Price</th>
-  
-</tr>
-</thead>
+    <thead>
+    <tr>
+                            <th scope="col">Item Code</th>
+                            <th scope="col">Rate</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Misc Cost</th>
+                            <th scope="col">Price</th>
+                          </tr>
+    </thead>
     <tbody>
       <tr>
 
       <td scope="row">
-        {/*
-                <DynamicDropdown
-                  apiEndpoint="http://localhost:8088/api/user/read/csesutanu@gmail.com"
-                  onSelect={(value) => handleDropdownChange(value, 'itemCode')}
-                />
-
-
-                 <SuppDrop onChange={(e) => handleChange(e, 'c_supplierCode')} />
-
-                 <input
-                    className="select-input"
-                    type="text"
-                    name="f_productCode"
-                    placeholder="ex: Prod-001"
-                    value={formData.f_productCode}
-                    onChange={(e) => handleChange(e, 'f_productCode')}
-                    required
-                /> 
-                  <td className="text-center align-middle" id="description">
-        <input
-                    className="select-input"
-                    type="text"
-                    name="g_description"
-                    placeholder="write about quotation(within 250 letters)"
-                    value={formData.g_description}
-                    onChange={(e) => handleChange(e, 'g_description')}
-                    required
-                />
-  </td>
-                
-                 */}
-
-              <ProdDrop onChange={(productCode) => handleChange({ target: { value: productCode } }, 'f_productCode')} />
-         
-
+              <ProdDrop onChange={(prod_code) => handleChange({ target: { value: prod_code } }, 'prod_code')} />
              </td>
 
   <td className="text-center align-middle">
   <input
                     className="select-input"
                     type="number"
-                    name="h_rate"
+                    name="rate"
                     min="1"
                     placeholder="ex: 499"
-                    value={formData.h_rate}
-                    onChange={(e) => handleChange(e, 'h_rate')}
+                    value={formData2.rate}
+                    onChange={(e) => handleChange(e, 'rate')}
                     required
                 />
   </td>
@@ -239,11 +204,11 @@ return (
   <input
                     className="select-input"
                     type="number"
-                    name="i_qnty"
+                    name="qnty"
                     min="1"
                     placeholder="ex: 10"
-                    value={formData.i_qnty}
-                    onChange={(e) => handleChange(e, 'i_qnty')}
+                    value={formData2.qnty}
+                    onChange={(e) => handleChange(e, 'qnty')}
                     required
                 />
   </td>
@@ -252,10 +217,10 @@ return (
                     className="select-input"
                     type="number"
                     min="0"
-                    name="j_misc"
+                    name="misc"
                     placeholder="Any extra"
-                    value={formData.j_misc}
-                    onChange={(e) => handleChange(e, 'j_misc')}
+                    value={formData2.misc}
+                    onChange={(e) => handleChange(e, 'misc')}
                     required
                 />
   </td>
@@ -265,19 +230,15 @@ return (
                     className="select-input"
                     type="number"
                     min="1"
-                    name="k_price"
+                    name="price"
                     placeholder="ex: 499"
-                    value={formData.k_price}
-                    onChange={(e) => handleChange(e, 'k_price')}
+                    value={formData2.price}
+                    onChange={(e) => handleChange(e, 'price')}
                     required
                 />
   </td>
+
   </tr>
-  {/*
-  <tr>
-  <AddDeleteTableRows />
-  </tr>
-                */}
             </tbody>
             
 
@@ -286,6 +247,10 @@ return (
           </table>
 
 </div>
+
+    </div>
+
+
 <div className="flex text-center align-center justify-end fixed-bottom">
           <button className="bttn" onClick={resetPage}>
             Cancel

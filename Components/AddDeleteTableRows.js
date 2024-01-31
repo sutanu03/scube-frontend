@@ -1,7 +1,8 @@
-{/*}
+
 import { useState } from "react"
 import TableRows from "@/Components/TableRows"
-function AddDeleteTableRows(){
+import ProdDrop from '@/Components/ProdDrop'
+function AddDeleteTableRows({ onChange }){
 
 
     const [rowsData, setRowsData] = useState([]);
@@ -9,12 +10,13 @@ function AddDeleteTableRows(){
     const addTableRows = ()=>{
   
         const rowsInput={
-            f_productCode: '',
-            g_description: '',
-            h_rate: '',
-            i_qnty: '',
-            j_misc: '',
-            k_price: ''  
+                quotation_number: '',
+                prod_code: '',
+                rate: '',
+                qnty: '',
+                misc: '',
+                price: '',
+  
         } 
         setRowsData([...rowsData, rowsInput])
       
@@ -42,13 +44,14 @@ function AddDeleteTableRows(){
 
                 <table className="table">
                     <thead>
-                      <tr>
-                          <th>Full Name</th>
-                          <th>Email Address</th>
-                          <th>Salary</th>
-                          <th><button className="btn btn-outline-success" onClick={addTableRows} >+</button></th>
-                      </tr>
-
+                        <tr>
+                            <th scope="col">Item Code</th>
+                            <th scope="col">Rate</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Misc Cost</th>
+                            <th scope="col">Price</th>
+                          <th><button className="btn btn-outline-success" onClick={addTableRows} >Add</button></th>
+                        </tr>
                     </thead>
                    <tbody>
 
@@ -66,6 +69,4 @@ function AddDeleteTableRows(){
     )
 
 }
-export default AddDeleteTableRows
-
-*/}
+export default AddDeleteTableRows;

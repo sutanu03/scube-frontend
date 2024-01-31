@@ -15,13 +15,12 @@ function Header() {
       </Link>
       
       <div className="flex gap-6">
-      <Link href="/Dashboard">Dashboard</Link>
-      <Link href="">Supplier</Link>
-      <Link href="">Product</Link>
+      <Link href="/Supplier">Supplier</Link>
+      <Link href="/Product">Product</Link>
       <Link href="">Assign User</Link>
       <Link href="/Quotation">Quotation</Link>
-      <Link href="">Purchase Order</Link>
-      <Link href="">Invoice</Link>
+      <Link href="/PO">Purchase Order</Link>
+      <Link href="/Invoice">Invoice</Link>
       <Link href="">Logout</Link>
       </div>
      
