@@ -101,3 +101,7 @@ input::-webkit-inner-spin-button {
     background-color: #0047ab;
     color: #fff;
   }
+
+  modal-width {
+    width: 500px;
+  }
