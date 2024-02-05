@@ -14,17 +14,20 @@ const QuoteForm = ({ onChange }) => {
   const [formData, setFormData] = useState({
     quotation_number: '',
     q_date: '',
-    supp_code: '',
+    supp_code: 'TCS-01-001',
     submission_date: getCurrentDate(),
+    quotationDetail: {
+      quotation_number: 'Q-002',
+      prod_code: 'Prod-002',
+      rate: '100',
+      qnty: '10',
+      misc: '0',
+      price: '1000',
+    }
   });
 
   const [formData2, setFormData2] = useState({
-    quotation_number: '',
-    prod_code: '',
-    rate: '',
-    qnty: '',
-    misc: '',
-    price: '',
+    
   });
 
   // state to check if the quotation number exists
@@ -73,9 +76,9 @@ const QuoteForm = ({ onChange }) => {
 
     // Continue with form submission
     console.log('Form submitted:', formData);
-    saveFormDataToDatabase(formData);
-    formData2.quotation_number = formData.quotation_number;
-    saveFormDataToDatabase2(formData2);
+    //console.log(formData2);
+   // saveFormDataToDatabase(formData);
+   // saveFormDataToDatabase2(formData2);
   };
 
 
@@ -140,7 +143,7 @@ return (
 
   <div className="data-1 d-flex w-1/4">
 <label>Quotation Date:</label>
-<input type="date" name="b_date" value={formData.b_date} onChange={(e) => handleChange(e, 'b_date')} max={new Date().toISOString().split('T')[0]} required/>
+<input type="date" name="b_date" value={formData.q_date} onChange={(e) => handleChange(e, 'q_date')} max={new Date().toISOString().split('T')[0]} required/>
 </div>
 
 <div className="data-1 d-flex w-1/4">
@@ -195,7 +198,7 @@ return (
                     name="rate"
                     min="1"
                     placeholder="ex: 499"
-                    value={formData2.rate}
+                    value={formData.rate}
                     onChange={(e) => handleChange(e, 'rate')}
                     required
                 />
@@ -207,7 +210,7 @@ return (
                     name="qnty"
                     min="1"
                     placeholder="ex: 10"
-                    value={formData2.qnty}
+                    value={formData.qnty}
                     onChange={(e) => handleChange(e, 'qnty')}
                     required
                 />
@@ -219,7 +222,7 @@ return (
                     min="0"
                     name="misc"
                     placeholder="Any extra"
-                    value={formData2.misc}
+                    value={formData.misc}
                     onChange={(e) => handleChange(e, 'misc')}
                     required
                 />
@@ -232,7 +235,7 @@ return (
                     min="1"
                     name="price"
                     placeholder="ex: 499"
-                    value={formData2.price}
+                    value={formData.price}
                     onChange={(e) => handleChange(e, 'price')}
                     required
                 />

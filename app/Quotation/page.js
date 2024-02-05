@@ -1,7 +1,17 @@
 "use client"
 import React, { useState } from 'react';
+import QuoteForm from '@/Components/QuoteForm';
+import SimpleQuote from '@/Components/SimpleQuote';
+const Quotation = () => {
+  return (
+    <SimpleQuote/>
+  );
+};
 
-const QuoteForm = () => {
+export default Quotation;
+  
+  {/*
+<QuoteForm/>
   const [formData, setFormData] = useState({
     quotation_number: '',
     c_q_date: '',
@@ -116,6 +126,4 @@ const QuoteForm = () => {
       <button type="submit">Submit</button>
     </form>
   );
-};
-
-export default QuoteForm;
+*/}
