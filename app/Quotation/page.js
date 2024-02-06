@@ -4,14 +4,15 @@ import QuoteForm from '@/Components/QuoteForm';
 import SimpleQuote from '@/Components/SimpleQuote';
 const Quotation = () => {
   return (
-    <SimpleQuote/>
+    <QuoteForm/>
   );
 };
 
 export default Quotation;
   
   {/*
-<QuoteForm/>
+  <SimpleQuote/>
+
   const [formData, setFormData] = useState({
     quotation_number: '',
     c_q_date: '',

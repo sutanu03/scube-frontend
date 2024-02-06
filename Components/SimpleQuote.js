@@ -103,7 +103,7 @@ const SimpleQuote = () => {
                             <th scope="col">Quantity</th>
                             <th scope="col">Misc Cost</th>
                             <th scope="col">Price</th>
-                          </tr>
+    </tr>
     </thead>
     <tbody>
       <tr>

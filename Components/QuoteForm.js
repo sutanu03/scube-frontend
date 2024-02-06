@@ -5,8 +5,13 @@ import SuppDrop from '@/Components/SuppDrop';
 import axios from 'axios';
 import AddDeleteTableRows from '@/Components/AddDeleteTableRows';
 import TableRow from '@/Components/TableRow';
+import Detail from '@/app/Quotation/Detail';
 
 const QuoteForm = ({ onChange }) => {
+
+  // problem for saving quote number after every detail submission ==> if after submitting some detail, any problem occurs, then the quotation number should be changed
+  // but for that details, the quote number will be unchnaged
+  // thats why we have save the quotation first, then add details within it
 
   // unique quotation number 
 
@@ -77,7 +82,7 @@ const QuoteForm = ({ onChange }) => {
     // Continue with form submission
     console.log('Form submitted:', formData);
     //console.log(formData2);
-   // saveFormDataToDatabase(formData);
+   // saveFormDataToDatabase(formData);  
    // saveFormDataToDatabase2(formData2);
   };
 
@@ -146,7 +151,7 @@ return (
 <input type="date" name="b_date" value={formData.q_date} onChange={(e) => handleChange(e, 'q_date')} max={new Date().toISOString().split('T')[0]} required/>
 </div>
 
-<div className="data-1 d-flex w-1/4">
+    <div className="data-1 d-flex w-1/4">
           <label htmlFor="submission_date">Submission Date:</label>
           <input
         type="text"
@@ -158,7 +163,7 @@ return (
         readOnly // Make the current date input read-only
         required
       />
-        </div>
+    </div>
 
         <div className="data-1 d-flex w-1/4">
           <label>Supplier Code:</label>
@@ -263,6 +268,7 @@ return (
           </button>
         </div>
       </form>
+      <Detail/>
     </div>
   );
 };
