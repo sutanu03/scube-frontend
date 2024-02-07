@@ -1,5 +1,8 @@
 import { useState } from "react"
-function AddRemoveMultipleInputFields(){
+
+import ProdDrop from '@/Components/ProdDrop'
+
+function AddRemoveMultipleInputFields({ onChange }){
 
     const [inputFields, setInputFields] = useState([{
         prod_code:'',
@@ -47,7 +50,7 @@ function AddRemoveMultipleInputFields(){
                             <div className="row my-3 w-full flex justify-between" key={index}>
                     <div className="col">
                     <div className="form-group">
-                    <input type="text" onChange={(evnt)=>handleChange(index, evnt)} value={prod_code} name="prod_code" className="form-control"  placeholder="Product Code" />
+                    <ProdDrop onChange={(prod_code) => handleChange({ target: { value: prod_code } }, 'prod_code')} />
                     </div>
                     </div>
                     <div className="col">
