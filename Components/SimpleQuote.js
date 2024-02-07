@@ -11,7 +11,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-const SimpleQuote = () => {
+const SimpleQuote = ({ onChange }) => {
 
   const [product_code, setProduct_code] = useState('')
 
@@ -196,13 +196,19 @@ const SimpleQuote = () => {
       />
     </div>
 
-        <div className="data-1 d-flex w-1/4">
+    <div className="data-1 d-flex w-1/4">
+          <label>Supplier Code:</label>
+          <SuppDrop onChange={(value) => handleChange({ target: { value } }, 'supp_code')} />
+        </div>
+
+     {/*}   <div className="data-1 d-flex w-1/4">
           <label>Supplier Code:</label>
           <input type="text" name="supp_code" placeholder='Supplier Code'
           value={formData.supplier.supp_code}
            onChange={handleSupplierChange} />
           
         </div>
+  */}
 
         </div> 
 <hr/>
