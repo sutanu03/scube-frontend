@@ -7,49 +7,59 @@ function TableRows({rowsData, deleteTableRows, handleChange, onChange }) {
     return(
         
         rowsData.map((data, index)=>{
-            const {fullName, emailAddress, salary}= data;
+            const {
+                product: {
+              prod_code
+            },
+            d_rate,
+            e_qnty,
+            f_misc,
+            g_price
+            }= data;
             return(
 
                 <tr key={index}>
                     
                     <td scope="row">
-              <ProdDrop onChange={(prod_code) => handleChange({ target: { value: prod_code } }, 'prod_code')} />
+      <input type="text" name="prod_code" placeholder='Prod-001'
+          value={product_code}
+           onChange={handleProductChange} />
              </td>
 
   <td className="text-center align-middle">
   <input
                     className="select-input"
                     type="number"
-                    name="rate"
+                    name="d_rate"
                     min="1"
+                    required
                     placeholder="ex: 499"
-                    value={formData.rate}
-                    onChange={(e) => handleChange(e, 'rate')}
-                    required
+                    value={formData.quotationDetail.d_rate}
+                    onChange={handleQuotationDetailChange}
                 />
   </td>
   <td className="text-center align-middle">
   <input
                     className="select-input"
                     type="number"
-                    name="qnty"
+                    name="e_qnty"
                     min="1"
-                    placeholder="ex: 10"
-                    value={formData.qnty}
-                    onChange={(e) => handleChange(e, 'qnty')}
                     required
+                    placeholder="ex: 10"
+                    value={formData.quotationDetail.e_qnty}
+                    onChange={handleQuotationDetailChange}
                 />
   </td>
   <td className="text-center align-middle">
   <input
                     className="select-input"
                     type="number"
+                    name="f_misc"
                     min="0"
-                    name="misc"
-                    placeholder="Any extra"
-                    value={formData.misc}
-                    onChange={(e) => handleChange(e, 'misc')}
                     required
+                    placeholder="Any extra"
+                    value={formData.quotationDetail.f_misc}
+                    onChange={handleQuotationDetailChange}
                 />
   </td>
   
@@ -57,12 +67,12 @@ function TableRows({rowsData, deleteTableRows, handleChange, onChange }) {
   <input
                     className="select-input"
                     type="number"
+                    name="g_price"
                     min="1"
-                    name="price"
-                    placeholder="ex: 499"
-                    value={formData.price}
-                    onChange={(e) => handleChange(e, 'price')}
                     required
+                    placeholder="ex: 499"
+                    value={formData.quotationDetail.g_price}
+                    onChange={handleQuotationDetailChange}
                 />
   </td>
                 <td><button className="btn btn-outline-danger" onClick={()=>(deleteTableRows(index))}>x</button></td>

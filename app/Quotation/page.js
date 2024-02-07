@@ -2,16 +2,21 @@
 import React, { useState } from 'react';
 import QuoteForm from '@/Components/QuoteForm';
 import SimpleQuote from '@/Components/SimpleQuote';
+import TableNew from '@/Components/TableNew';
 const Quotation = () => {
   return (
-    <QuoteForm/>
+    <>
+    <SimpleQuote/>
+    </>
   );
 };
 
 export default Quotation;
   
   {/*
-  <SimpleQuote/>
+  <QuoteForm/>
+  <TableNew/>
+  
 
   const [formData, setFormData] = useState({
     quotation_number: '',

@@ -3,11 +3,13 @@ import React, { useState, useEffect } from 'react';
 import ProdDrop from '@/Components/ProdDrop'
 import SuppDrop from '@/Components/SuppDrop';
 import axios from 'axios';
-import AddDeleteTableRows from '@/Components/AddDeleteTableRows';
+import AddDeleteTableRows from '@/Components/AddRemoveMultipleInputFields';
 import TableRow from '@/Components/TableRow';
 import Detail from '@/app/Quotation/Detail';
 
 const QuoteForm = ({ onChange }) => {
+
+  const [quoteNum, setQuoteNum] = useState("");
 
   // problem for saving quote number after every detail submission ==> if after submitting some detail, any problem occurs, then the quotation number should be changed
   // but for that details, the quote number will be unchnaged
@@ -17,22 +19,19 @@ const QuoteForm = ({ onChange }) => {
 
   // saving data from input to Master formData
   const [formData, setFormData] = useState({
-    quotation_number: '',
+    quotation_number: quoteNum,
     q_date: '',
     supp_code: 'TCS-01-001',
-    submission_date: getCurrentDate(),
-    quotationDetail: {
-      quotation_number: 'Q-002',
+    submission_date: getCurrentDate()
+  });
+
+  const [formData2, setFormData2] = useState({
+      quotation_number: quoteNum,
       prod_code: 'Prod-002',
       rate: '100',
       qnty: '10',
       misc: '0',
-      price: '1000',
-    }
-  });
-
-  const [formData2, setFormData2] = useState({
-    
+      price: '1000'
   });
 
   // state to check if the quotation number exists
