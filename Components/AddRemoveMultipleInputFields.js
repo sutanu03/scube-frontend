@@ -1,8 +1,48 @@
 import { useState } from "react"
 
 import ProdDrop from '@/Components/ProdDrop'
+/*
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.List;
+
+public class JpaClass {
+
+    private EntityManager entityManager;
+
+    public List<Object[]> executeQuery() {
+        String jpql = "SELECT p.NAME, p.ID " +
+                      "FROM PepUser u " +
+                      "INNER JOIN u.person p " +
+                      "INNER JOIN p.role r " +
+                      "INNER JOIN RolePermission rp ON r.roleName = rp.role " +
+                      "INNER JOIN Permission pt ON rp.permissionId = pt.id " +
+                      "WHERE u.id = :userId";
+
+        Query query = entityManager.createQuery(jpql);
+        query.setParameter("userId", 532);
+
+        return query.getResultList();
+    }
+}
+
+
+SELECT 
+    PTL_PERMISSIONS.NAME,PTL_PERMISSIONS.ID
+FROM 
+    PEP_USERS
+INNER JOIN PEP_PERSON ON PEP_USERS.PERSON_ID =PEP_PERSON.PERSON_ID
+INNER JOIN PEP_ROLES ON PEP_ROLES.ROLE_ID=PEP_PERSON.ROLE_ID 
+INNER JOIN PTL_ROLE_PERMISSIONS ON  PTL_ROLE_PERMISSIONS.ROLE =PEP_ROLES.ROLE_NAME
+INNER JOIN PTL_PERMISSIONS ON PTL_ROLE_PERMISSIONS.PERMISSION_ID=PTL_PERMISSIONS.ID 
+WHERE 
+    PEP_USERS.ID=532;
+*/
 
 function AddRemoveMultipleInputFields({ onChange }){
+
+    const [selectedValue, setSelectedValue] = useState('');
+  const [dropdownData, setDropdownData] = useState([]);
 
     const [inputFields, setInputFields] = useState([{
         prod_code:'',
@@ -27,15 +67,23 @@ function AddRemoveMultipleInputFields({ onChange }){
         const rows = [...inputFields];
         rows.splice(index, 1);
         setInputFields(rows);
+
+        onChange={(prod_code) => handleChange({ target: { value: prod_code } }, 'prod_code')}
+
    }*/
+
+   // Function to handle changes in dropdown selection
+  const handleDropdownData = (value) => {
+    setSelectedValue(value);
+  };
+
    const handleChange = (index, evnt)=>{
     
     const { name, value } = evnt.target;
     const list = [...inputFields];
     list[index][name] = value;
     setInputFields(list);
-    
- 
+ console.log(inputFields)
  
 }
     return(
@@ -51,6 +99,7 @@ function AddRemoveMultipleInputFields({ onChange }){
                     <div className="col">
                     <div className="form-group">
                     <ProdDrop onChange={(prod_code) => handleChange({ target: { value: prod_code } }, 'prod_code')} />
+                    <p>{selectedValue}</p>
                     </div>
                     </div>
                     <div className="col">
