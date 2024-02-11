@@ -16,25 +16,25 @@ const SimpleQuote = ({ onChange }) => {
   const [product_code, setProduct_code] = useState('')
 
   const [formData, setFormData] = useState({
-    quotation_number: '',
-    c_q_date: '',
+    quotation_number: "",
+    c_q_date: "",
     d_submission_date: getCurrentDate(),
-    supplier: {
-      supp_code: ''
-    },
+    supplier: { supp_code: "" },
     quotationDetail: [
-    {
-    quote_details_id: '',
-    product: {
-      prod_code: ''
-    },
-    d_rate: '',
-    e_qnty: '',
-    f_misc: '',
-    g_price: ''
-    }
-  ]
+      {
+        quote_details_id: "",
+        product: { prod_code: "" },
+        d_rate: "",
+        e_qnty: "",
+        f_misc: "",
+        g_price: ""
+      }
+    ]
   });
+
+  const updateQuotationDetail = (quotationDetail) => {
+    setFormData({ ...formData, quotationDetail });
+  };
 /*
   formData.quotationDetail.push({
     quote_details_id: 1,
@@ -54,6 +54,10 @@ const SimpleQuote = ({ onChange }) => {
       [name]: value
   });
   };
+
+  const getQuoteDetails = (quoteD) => {
+    setFormData.quotationDetail(quoteD)
+  }
 
   const handleSupplierChange = (e) => {
     const { name, value } = e.target;
@@ -270,7 +274,7 @@ const SimpleQuote = ({ onChange }) => {
     
 
     */}
-    <AddRemoveMultipleInputFields/>
+    <AddRemoveMultipleInputFields updateQuotationDetail={updateQuotationDetail} />
       </div>
       <div className="flex text-center align-center justify-end fixed-bottom">
           <button className="bttn" onClick={resetPage}>
