@@ -115,7 +115,7 @@ const handleChange = (e) => {
   console.log(JSON.stringify(t));
   
   console.log(t.supplier.supp_code);
-    //saveFormDataToDatabase(t);  
+    saveFormDataToDatabase(t);  
     console.log('Form submitted:', t);
    // saveFormDataToDatabase2(formData2);
   };
@@ -145,10 +145,10 @@ const handleChange = (e) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="master-data d-flex m-2 justify-between text-justify p-2">
+      <div className="master-data d-flex m-1 justify-between text-justify ">
 
 <div className="data-1 flex w-1/4 align-middle">
-<label>Quote Number:</label>
+<label>Quote No:</label>
     <div className='text-center'>
     
     <input
@@ -159,17 +159,17 @@ const handleChange = (e) => {
       onChange={handleChange}
       required
     />
-    {isQuotationNumberExists && <div style={{ color: 'red', width: '300px'}}>Quotation number already exists!</div>}
+    {isQuotationNumberExists && <div style={{ color: 'red', width: '200px'}}>Quotation number already exists!</div>}
     </div>
   </div>
       
   <div className="data-1 d-flex w-1/4">
-<label>Quotation Date:</label>
+<label>Q Date:</label>
 <input type="date" name="c_q_date" value={formData.c_q_date} onChange={handleChange} max={new Date().toISOString().split('T')[0]} required/>
 </div>
 
 <div className="data-1 d-flex w-1/4">
-          <label htmlFor="submission_date">Submission Date:</label>
+          <label htmlFor="submission_date">Sub Date:</label>
           <input
         type="text"
         id="submission_date"
@@ -183,7 +183,7 @@ const handleChange = (e) => {
     </div>
 
     <div className="data-1 d-flex w-1/4">
-          <label>Supplier Code:</label>
+          <label>Supp Code:</label>
           <SuppDrop onChange={handleSupplierChange} />
         </div>
 
@@ -218,14 +218,15 @@ const handleChange = (e) => {
                 <h2>Quotation Details:</h2>
       */}
 
-<div className="header-text2 text-center justify-center d-flex p-2">
-            <h1>Details</h1>
-            <div>
-              
-            </div>
-            </div>
+      <div className="justify-around text-center w-full h-24 top-5">
+        <h1 className='font-bold justify-center align-middle items-center mt-5'>Search Div</h1>
+        <div className="justify-center align-middle items-center flex ">
+          <input type="text" placeholder='search here...'/>
+        <button className='ml-4 bg-slate-500 text-white p-2 rounded-md'>Search</button></div>
+      </div>
+      <hr />
 
-<div className="flex justify-center  overflow-scroll h-[300px]">
+<div className="overflow-scroll h-[320px]">
   {/*<AddDeleteTableRows/>*/}
         
 {/*}

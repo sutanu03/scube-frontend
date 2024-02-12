@@ -6,6 +6,7 @@
 
 * {
     box-sizing: border-box;
+    font-size: small;
   }
   
   body {
@@ -48,14 +49,14 @@
   
   input {
     width: 150px;
-    height: 40px;
+    height: 25px;
     border-radius: 6px;
     text-align: center;
     border: 1px solid #0047ab;
   }
   
   label {
-    margin-top: 2%;
+    margin-top: 1%;
     width: 150px;
     border-radius: 8px;
     font-weight: bold;
@@ -63,7 +64,7 @@
   
   select {
     width: 200px;
-    height: 40px;
+    height: 25px;
     border-radius: 6px;
     text-align: center;
     border: 1px solid #0047ab;
@@ -90,7 +91,7 @@ input::-webkit-inner-spin-button {
     background-color: #fff;
     color: #0047ab;
     width: 130px;
-    height: 35px;
+    height: 30px;
     margin-bottom: 10px;
     border-radius: 10px;
     cursor: pointer;
@@ -105,3 +106,5 @@ input::-webkit-inner-spin-button {
   modal-width {
     width: 500px;
   }
+
+  

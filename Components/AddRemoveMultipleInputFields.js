@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import ProdDrop from "@/Components/ProdDrop";
+import { MdDelete } from "react-icons/md";
+import { IoMdAddCircle } from "react-icons/io";
 
 function AddRemoveMultipleInputFields({ onChange, updateQuotationDetail }) {
   const [inputFields, setInputFields] = useState([
@@ -38,14 +40,28 @@ function AddRemoveMultipleInputFields({ onChange, updateQuotationDetail }) {
   };
 
   return (
-    <div className="justify-between items-center px-8">
+    <div className="justify-between items-center px-8 w-full">
+      <div className="absolute flex px-20 gap-44 text-black font-semibold w-full py-1 mb-2">
+              <h2>Product Code</h2>
+              <h2>Unit Price</h2>
+              <h2 className='px-4'>Quantity</h2>
+              <h2 className='px-4'>Misc</h2>
+              <h2 >Price</h2>
+                <button className="btn btn-success h-8 ml-[150px]" onClick={addInputField}>
+                  <IoMdAddCircle/>
+                </button>
+      </div>
+      
+        <br/>
       <div className="row flex justify-between">
         {inputFields.map((data, index) => {
           const { product, d_rate, e_qnty, f_misc, g_price } = data;
           return (
-            <div className="row my-3 w-full flex justify-between" key={index}>
+            <>
+            <div className="row my-1 w-full flex justify-between" key={index}>
+              
               <div className="col">
-                <div className="form-group text-start">
+                <div className="form-group">
                   <ProdDrop
                     onChange={(product) => handleChange(index, "product", product)}
                   />
@@ -58,7 +74,6 @@ function AddRemoveMultipleInputFields({ onChange, updateQuotationDetail }) {
                   value={d_rate}
                   name="d_rate"
                   className="form-control"
-                  placeholder="Rate"
                   required
                 />
               </div>
@@ -69,7 +84,6 @@ function AddRemoveMultipleInputFields({ onChange, updateQuotationDetail }) {
                   value={e_qnty}
                   name="e_qnty"
                   className="form-control"
-                  placeholder="Quantity"
                   required
                 />
               </div>
@@ -80,7 +94,6 @@ function AddRemoveMultipleInputFields({ onChange, updateQuotationDetail }) {
                   value={f_misc}
                   name="f_misc"
                   className="form-control"
-                  placeholder="Misc"
                   required
                 />
               </div>
@@ -90,28 +103,22 @@ function AddRemoveMultipleInputFields({ onChange, updateQuotationDetail }) {
                   value={g_price}
                   name="g_price"
                   className="form-control"
-                  placeholder="Price"
                   readOnly // Make it read-only
                   required
                 />
               </div>
               <div className="col">
                 {index !== 0 && ( // Render delete button for all rows except the first one
-                  <button className="btn btn-danger" onClick={() => deleteInputField(index)}>
-                    X
+                  <button className="btn btn-danger flex" onClick={() => deleteInputField(index)}>
+                    <MdDelete/>
                   </button>
                 )}
               </div>
+              
             </div>
+            </>
           );
         })}
-        <div className="row">
-          <div className="col-sm-12 d-flex flex-row-reverse">
-            <button className="btn btn-outline-success" onClick={addInputField}>
-              Add New
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   );
