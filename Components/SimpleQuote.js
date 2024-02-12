@@ -218,11 +218,11 @@ const handleChange = (e) => {
                 <h2>Quotation Details:</h2>
       */}
 
-      <div className="justify-around text-center w-full h-24 top-5">
+      <div className="justify-around text-center w-full h-28 top-5">
         <h1 className='font-bold justify-center align-middle items-center mt-5'>Search Div</h1>
         <div className="justify-center align-middle items-center flex ">
           <input type="text" placeholder='search here...'/>
-        <button className='ml-4 bg-slate-500 text-white p-2 rounded-md'>Search</button></div>
+        <button disabled className='ml-4 bg-slate-500 text-white p-2 rounded-md'>Search</button></div>
       </div>
       <hr />
 

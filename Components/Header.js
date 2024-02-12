@@ -6,7 +6,7 @@ function Header() {
   // header component
 
   return (
-    <div className="h-16 p-4 text-white bg-blue-800 flex items-center justify-between">
+    <div className="h-10 p-4 text-white bg-blue-800 flex items-center justify-between">
       
       <Link href="/">
       <h1 className="text-2xl font-bold">
