@@ -1,19 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import ProdDrop from '@/Components/ProdDrop'
 import SuppDrop from '@/Components/SuppDrop';
 import axios from 'axios';
-import AddDeleteTableRows from '@/Components/AddRemoveMultipleInputFields';
-import TableRow from '@/Components/TableRow';
-import Detail from '@/app/Quotation/Detail';
-import TableRows from './TableRows';
 import AddRemoveMultipleInputFields from '@/Components/AddRemoveMultipleInputFields';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 const SimpleQuote = ({ onChange }) => {
-
-  const [product_code, setProduct_code] = useState('')
 
   const [formData, setFormData] = useState({
     quotation_number: "",
@@ -35,44 +25,33 @@ const SimpleQuote = ({ onChange }) => {
   const updateQuotationDetail = (quotationDetail) => {
     setFormData({ ...formData, quotationDetail });
   };
-/*
-  formData.quotationDetail.push({
-    quote_details_id: 1,
-    product: {
-      prod_code: "Prod-001"
-    },
-    d_rate: 9500,
-    e_qnty: 10,
-    f_misc: 0,
-    g_price: 95000
+
+
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setFormData({
+    ...formData,
+    [name]: value
   });
-*/
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+};
+
+  const handleSupplierChange = (value) => { 
     setFormData({
       ...formData,
-      [name]: value
-  });
-  };
-
-  const getQuoteDetails = (quoteD) => {
-    setFormData.quotationDetail(quoteD)
-  }
-
-  const handleSupplierChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      supplier: {
-        ...formData.supplier,
-        [name]: value
-      }
+      supplier: value
     });
   };
 
-  const handleProductChange = (e) => {
-    setProduct_code(e.target.value);
-    console.log(product_code)
+  const handleProductChange = (value) => {
+    setFormData({
+      ...formData,
+      quotationDetail: formData.quotationDetail.map(detail => ({
+        ...detail,
+        product: {
+          prod_code: value
+        }
+      }))
+    });
   };
 
   const handleQuotationDetailChange = (e, index) => {
@@ -119,9 +98,25 @@ const SimpleQuote = ({ onChange }) => {
     }
    // setFormData(...formData, quotationDetail.product.prod_code,);
     // Continue with form submission
-    console.log('Form submitted:', formData);
+   
     //console.log(formData2);
-   // saveFormDataToDatabase(formData);  
+    console.log(formData.supplier);
+    console.log(formData.quotationDetail);
+
+    const t = {
+      "quotation_number": formData.quotation_number,
+      "c_q_date": formData.c_q_date,
+      "d_submission_date": formData.d_submission_date,
+      "supplier" : {
+      "supp_code": formData.supplier.supp_code
+      },
+      "quotationDetail" : formData.quotationDetail
+  }
+  console.log(JSON.stringify(t));
+  
+  console.log(t.supplier.supp_code);
+    //saveFormDataToDatabase(t);  
+    console.log('Form submitted:', t);
    // saveFormDataToDatabase2(formData2);
   };
 
@@ -134,20 +129,7 @@ const SimpleQuote = ({ onChange }) => {
     axios.post(apiEndpoint, data)
       .then(response => {
         console.log('Form data saved successfully:', response.data);
-        resetFormData();
-      //  reset();
-      })
-      .catch(error => {
-        console.error('Error saving form data:', error);
-      });
-  };
-
-  const saveFormDataToDatabase2 = (data) => {
-    const apiEndpoint = 'http://localhost:8088/api/quote/details/add';
-
-    axios.post(apiEndpoint, data)
-      .then(response => {
-        console.log('Detail saved successfully:', response.data);
+        console.log(data);
         resetFormData();
       //  reset();
       })
@@ -202,7 +184,7 @@ const SimpleQuote = ({ onChange }) => {
 
     <div className="data-1 d-flex w-1/4">
           <label>Supplier Code:</label>
-          <SuppDrop onChange={(value) => handleChange({ target: { value } }, 'supp_code')} />
+          <SuppDrop onChange={handleSupplierChange} />
         </div>
 
      {/*}   <div className="data-1 d-flex w-1/4">

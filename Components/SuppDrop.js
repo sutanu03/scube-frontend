@@ -3,12 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const SuppDrop = ({ onChange }) => {
-
-  // state to save the value of Selected supplier
-  
   const [supplier, setSupplier] = useState([]);
-
-  // getting Supplier.a_supplierCode from database using axios
 
   useEffect(() => {
     axios.get('http://localhost:8088/api/supplier/read/all')
@@ -17,8 +12,9 @@ const SuppDrop = ({ onChange }) => {
   }, []);
 
   const handleSelectChange = (e) => {
-    const selectedSupplierCode = e.target.value;
-    onChange(selectedSupplierCode);
+   
+    const supp_code = e.target.value;
+    onChange({supp_code : supp_code }); // Pass object with supp_code key
   };
 
   return (
@@ -26,12 +22,13 @@ const SuppDrop = ({ onChange }) => {
       <select onChange={handleSelectChange}>
         {supplier.map(supplier => (
           <option value={supplier.supp_code} key={supplier.supp_code}>
-            {supplier.supp_code}
+            {supplier.supp_code} -- {supplier.b_supp_name}
           </option>
         ))}
       </select>
     </>
   );
 };
+
 
 export default SuppDrop;

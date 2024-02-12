@@ -13,7 +13,7 @@ const ProdDrop = ({ onChange }) => {
 
   const handleSelectChange = (e) => {
     const selectedProductCode = e.target.value;
-    onChange(selectedProductCode); // Pass the selected product code
+    onChange({ prod_code: selectedProductCode }); // Pass object with prod_code key
   };
 
   return (
@@ -21,12 +21,13 @@ const ProdDrop = ({ onChange }) => {
       <select onChange={handleSelectChange}>
         {product.map(product => (
           <option value={product.prod_code} key={product.prod_code}>
-            {product.prod_code}
+            {product.prod_code} -- {product.b_prod_name} -- {product.c_description}
           </option>
         ))}
       </select>
     </>
   );
 };
+
 
 export default ProdDrop;
