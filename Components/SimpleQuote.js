@@ -5,6 +5,21 @@ import AddRemoveMultipleInputFields from '@/Components/AddRemoveMultipleInputFie
 
 const SimpleQuote = ({ onChange }) => {
 
+
+  // Add a state to manage the visibility of the modal
+const [isModalOpen, setIsModalOpen] = useState(false);
+
+// Function to open the modal
+const openModal = () => {
+  setIsModalOpen(true);
+};
+
+// Function to close the modal
+const closeModal = () => {
+  setIsModalOpen(false);
+};
+
+
   const [formData, setFormData] = useState({
     quotation_number: "",
     c_q_date: "",
@@ -39,30 +54,6 @@ const handleChange = (e) => {
     setFormData({
       ...formData,
       supplier: value
-    });
-  };
-
-  const handleProductChange = (value) => {
-    setFormData({
-      ...formData,
-      quotationDetail: formData.quotationDetail.map(detail => ({
-        ...detail,
-        product: {
-          prod_code: value
-        }
-      }))
-    });
-  };
-
-  const handleQuotationDetailChange = (e, index) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-     // quotationDetail: prevQuotation.quotationDetail.map((detail, i) => i === index ? { ...detail, [name]: value } : detail)
-     quotationDetail: {
-      ...formData.quotationDetail,
-      [name]: value
-    }
     });
   };
 
@@ -115,7 +106,7 @@ const handleChange = (e) => {
   console.log(JSON.stringify(t));
   
   console.log(t.supplier.supp_code);
-    saveFormDataToDatabase(t);  
+  //  saveFormDataToDatabase(t);  
     console.log('Form submitted:', t);
    // saveFormDataToDatabase2(formData2);
   };
@@ -145,16 +136,16 @@ const handleChange = (e) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="master-data d-flex m-1 justify-between text-justify ">
+      <div className="master-data d-flex m-1 justify-around text-justify">
 
-<div className="data-1 flex w-1/4 align-middle">
-<label>Quote No:</label>
+<div className="data-1 flex w-1/6 align-middle justify-center">
+<label className='w-[150px]'>Quotation Number:</label>
     <div className='text-center'>
     
     <input
       type="text"
       name="quotation_number"
-      placeholder='pattern: Quote-00?'
+      placeholder='pttrn: Quote-00?'
       value={formData.quotation_number}
       onChange={handleChange}
       required
@@ -163,13 +154,13 @@ const handleChange = (e) => {
     </div>
   </div>
       
-  <div className="data-1 d-flex w-1/4">
-<label>Q Date:</label>
+  <div className="data-1 d-flex w-1/6 justify-center">
+<label>Quotation Date:</label>
 <input type="date" name="c_q_date" value={formData.c_q_date} onChange={handleChange} max={new Date().toISOString().split('T')[0]} required/>
 </div>
 
-<div className="data-1 d-flex w-1/4">
-          <label htmlFor="submission_date">Sub Date:</label>
+<div className="data-1 d-flex w-1/6 justify-center">
+          <label htmlFor="submission_date" className='w-[110px]'>Submission Date:</label>
           <input
         type="text"
         id="submission_date"
@@ -182,10 +173,14 @@ const handleChange = (e) => {
       />
     </div>
 
-    <div className="data-1 d-flex w-1/4">
-          <label>Supp Code:</label>
+    <div className="data-1 d-flex w-1/6 justify-center">
+          <label>Supplier Code:</label>
           <SuppDrop onChange={handleSupplierChange} />
         </div>
+        {/* <div className="data-1 d-flex w-1/6">
+          <label>Supplier Name:</label>
+          <SuppDrop onChange={handleSupplierChange}/>
+        </div> */}
 
      {/*}   <div className="data-1 d-flex w-1/4">
           <label>Supplier Code:</label>
@@ -219,10 +214,38 @@ const handleChange = (e) => {
       */}
 
       <div className="justify-around text-center w-full h-28 top-5">
-        <h1 className='font-bold justify-center align-middle items-center mt-5'>Search Div</h1>
-        <div className="justify-center align-middle items-center flex ">
-          <input type="text" placeholder='search here...'/>
-        <button disabled className='ml-4 bg-slate-500 text-white p-2 rounded-md'>Search</button></div>
+        <h1 className='font-bold justify-center align-middle items-center mt-5 text-xl'>Search Quotation</h1>
+        {/* <div className="justify-around align-middle items-center flex ">
+          <div className="col">
+            <label  className="text-black">
+              FROM:</label>
+            <input type="date" name="" id="" placeholder='From Date' className='w-[200px]'/>
+            </div>
+            <div>
+            <label  className="text-black">
+              TO:</label>
+              <input type="date" name="" id="" placeholder='To Date' className='w-[200px]'/>
+            </div>
+            <div>
+            <label  className="text-black">
+              Supplier Code:</label>
+              <select>
+                <option value="2" key="">CTS-03-002</option>
+                <option value="3" key="">LTI-04-003</option>
+                <option value="1" key="">TCS-01-001</option>
+              </select>
+            </div>
+            <div className="col-span-2">
+            <label  className="text-black">
+              Supplier Name:</label>
+              <span>
+                Tata Consultancy Services
+              </span>
+            </div>
+            
+          
+        <button disabled className='ml-4 bg-slate-500 text-white h-8 w-16 rounded-md'>Search</button>
+        </div> */}
       </div>
       <hr />
 
@@ -288,7 +311,7 @@ const getCurrentDate = () => {
 
 // refresh page after cancel button to clear everything in the  form
 const resetPage = (e) => {
-  //alert('Form submission canceled');
+  //confirm('Want to cancel form submission?');
   window.location.reload(false);
 };
 

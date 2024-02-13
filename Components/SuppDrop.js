@@ -14,7 +14,11 @@ const SuppDrop = ({ onChange }) => {
   const handleSelectChange = (e) => {
    
     const supp_code = e.target.value;
-    onChange({supp_code : supp_code }); // Pass object with supp_code key
+    if (supp_code === "") {
+      alert("Please select a Supplier.");
+    } else {
+      onChange({supp_code : supp_code }); // Pass object with prod_code key
+    }
   };
 
   return (

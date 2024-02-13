@@ -1,4 +1,3 @@
-// ProdDrop.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -13,12 +12,18 @@ const ProdDrop = ({ onChange }) => {
 
   const handleSelectChange = (e) => {
     const selectedProductCode = e.target.value;
-    onChange({ prod_code: selectedProductCode }); // Pass object with prod_code key
+    console.log(selectedProductCode)
+    if (selectedProductCode === "") {
+      alert("Please select a product.");
+    } else {
+      onChange({ prod_code: selectedProductCode }); // Pass object with prod_code key
+    }
   };
 
   return (
     <>
       <select onChange={handleSelectChange}>
+        <option value="">Select Product</option> {/* Default option */}
         {product.map(product => (
           <option value={product.prod_code} key={product.prod_code}>
             {product.prod_code} -- {product.b_prod_name} -- {product.c_description}
