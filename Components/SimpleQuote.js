@@ -177,10 +177,10 @@ const handleChange = (e) => {
           <label>Supplier Code:</label>
           <SuppDrop onChange={handleSupplierChange} />
         </div>
-        {/* <div className="data-1 d-flex w-1/6">
-          <label>Supplier Name:</label>
-          <SuppDrop onChange={handleSupplierChange}/>
-        </div> */}
+        <div className="data-1 d-flex w-1/3">
+          <label className='w-[150px]'>Supplier Name:</label>
+              <span className='w-[250px]text-center mt-1'>TCS</span>
+        </div>
 
      {/*}   <div className="data-1 d-flex w-1/4">
           <label>Supplier Code:</label>
@@ -215,7 +215,7 @@ const handleChange = (e) => {
 
       <div className="justify-around text-center w-full h-28 top-5">
         <h1 className='font-bold justify-center align-middle items-center mt-5 text-xl'>Search Quotation</h1>
-        {/* <div className="justify-around align-middle items-center flex ">
+        <div className="justify-around align-middle items-center flex ">
           <div className="col">
             <label  className="text-black">
               FROM:</label>
@@ -245,7 +245,7 @@ const handleChange = (e) => {
             
           
         <button disabled className='ml-4 bg-slate-500 text-white h-8 w-16 rounded-md'>Search</button>
-        </div> */}
+        </div>
       </div>
       <hr />
 

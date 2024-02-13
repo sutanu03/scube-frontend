@@ -63,7 +63,7 @@ function AddRemoveMultipleInputFields({ onChange, updateQuotationDetail }) {
               <h2 className='w-[10%] text-center ml-8'>Misc</h2>
               <h2 className='w-[10%] text-center px-16'>Discount</h2>
               <h2 className='w-[15%] text-center'>Price</h2>
-              <div className=" flex w-[5%] flex-row-reverse">
+              <div className=" flex w-[5%] flex-row-reverse mr-1">
               <button className="btn btn-success h-8" onClick={addInputField}>
                   <IoMdAddCircle/>
                 </button>
