@@ -56,16 +56,19 @@ function AddRemoveMultipleInputFields({ onChange, updateQuotationDetail }) {
   return (
     <div className="w-full">
       <div className="fixed flex w-full text-black bg-slate-200 font-semibold align-middle items-center">
-              <h2 className="px-3">Product Code</h2>
-              <h2 className="col-span-5">Product Description</h2>
-              <h2 className=''>Unit Price</h2>
-              <h2 className=''>Quantity</h2>
-              <h2 className=''>Misc</h2>
-              <h2 className=''>Discount</h2>
-              <h2 >Price</h2>
-                <button className="btn btn-success h-8" onClick={addInputField}>
+              <h2 className="w-[10%] ml-4">Product Code</h2>
+              <h2 className="w-[29%] text-center">Product Description</h2>
+              <h2 className='w-[10%] text-center ml-12'>Unit Price</h2>
+              <h2 className='w-[10%] text-center ml-8'>Quantity</h2>
+              <h2 className='w-[10%] text-center ml-8'>Misc</h2>
+              <h2 className='w-[10%] text-center px-16'>Discount</h2>
+              <h2 className='w-[15%] text-center'>Price</h2>
+              <div className=" flex w-[5%] flex-row-reverse">
+              <button className="btn btn-success h-8" onClick={addInputField}>
                   <IoMdAddCircle/>
                 </button>
+              </div>
+                
       </div>
       
         <br/>
