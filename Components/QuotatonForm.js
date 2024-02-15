@@ -23,7 +23,7 @@ const QuotationForm = () => {
   };
 
   const handleQuotationClick = (quotation_number) => {
-    alert("You've clicked on quotation number : ", quotation_number);
+    alert("You've clicked on quotation number : "+ quotation_number);
     console.log(quotation_number);
   };
 
