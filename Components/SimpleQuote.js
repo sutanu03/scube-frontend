@@ -140,7 +140,7 @@ const handleChange = (e) => {
     <>
     {/* <AdvanceSearch/> */}
     <QuotationForm/>
-    <hr/>
+
     <form onSubmit={handleSubmit}>
       <div className="master-data d-flex m-1 justify-around text-justify">
 
@@ -183,10 +183,10 @@ const handleChange = (e) => {
           <label>Supplier Code:</label>
           <SuppDrop onChange={handleSupplierChange} />
         </div>
-        <div className="data-1 d-flex w-1/3">
+        {/* <div className="data-1 d-flex w-1/3">
           <label className='w-[150px]'>Supplier Name:</label>
               <span className='w-[250px]text-center mt-1'>TCS</span>
-        </div>
+        </div> */}
 
      {/*}   <div className="data-1 d-flex w-1/4">
           <label>Supplier Code:</label>

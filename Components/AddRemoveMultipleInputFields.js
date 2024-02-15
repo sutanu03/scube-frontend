@@ -55,7 +55,7 @@ function AddRemoveMultipleInputFields({ onChange, updateQuotationDetail }) {
 
   return (
     <div className="w-full">
-      <div className="fixed flex w-full text-black bg-slate-200 font-semibold align-middle items-center">
+      <div className="flex w-full text-black bg-slate-200 font-semibold align-middle items-center">
               <h2 className="w-[10%] ml-4">Product Code</h2>
               <h2 className="w-[29%] text-center">Product Description</h2>
               <h2 className='w-[10%] text-center ml-12'>Unit Price</h2>
@@ -72,7 +72,7 @@ function AddRemoveMultipleInputFields({ onChange, updateQuotationDetail }) {
       </div>
       
         <br/>
-      <div className="row flex justify-between mt-2">
+      <div className="row flex justify-between">
         {inputFields.map((data, index) => {
           const { product, d_rate, e_qnty, f_misc, g_price } = data;
           return (

@@ -76,6 +76,30 @@
     border: 1px solid black;
   }
 
+  .advnce-div{
+    all: unset;
+  }
+
+  .advnce-div form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px;
+  }
+  
+  .advnce-div label {
+    margin-right: 10px;
+  }
+  
+  .advnce-div input[type="text"],
+  .advnce-div input[type="date"],
+  .advnce-div button {
+    height: 30px; /* Adjust the height as needed */
+    padding: 0 10px; /* Adjust padding as needed */
+  }
+  
+
   /* Chrome, Safari, Edge, Opera for hidden arrows in input */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
