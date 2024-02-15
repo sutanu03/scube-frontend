@@ -31,10 +31,6 @@ const QuotationForm = () => {
     <>
       <div className="advnce-div">
         <form onSubmit={handleSubmit}>
-          <div className="flex justify-between gap-10">
-            <label>Supplier Code :</label>
-            <input type="text" value={supp_code} onChange={(e) => setSupplierCode(e.target.value)} className="w-[120px]" required/>
-          </div>
           <div className="flex justify-between">
             <label>From :</label>
             <input type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} className="w-[120px]" required/>
@@ -42,6 +38,10 @@ const QuotationForm = () => {
           <div className="flex justify-between">
             <label>To :</label>
             <input type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} className="w-[120px]" required/>
+          </div>
+          <div className="flex justify-between gap-10">
+            <label>Supplier Code :</label>
+            <input type="text" value={supp_code} onChange={(e) => setSupplierCode(e.target.value)} className="w-[120px]" required/>
           </div>
           <div className="flex">
             <button type="submit" className='button bg-slate-700 text-white h-8 rounded-lg w-10 text-center align-middle justify-center'>
