@@ -1,60 +1,83 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-const EditQuote = ({ onChange, quotation_no }) => {
+class QuotationDetailTable extends React.Component {
+  render() {
+    const { quotationDetail } = this.props;
 
-  const [quotation_num, setquotation_num] = useState('');
-  setquotation_num(quotation_no);
+    return (
+      <div>
+        <h2>Quotation Detail</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Product Code</th>
+              <th>Product Name</th>
+              <th>Description</th>
+              <th>Unit Price</th>
+              <th>Rate</th>
+              <th>Quantity</th>
+              <th>Misc</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {quotationDetail.map((detail, index) => (
+              <tr key={index}>
+                <td> <input type="text" value={detail.product.prod_code}/></td>
+                <td>{detail.product.b_prod_name}</td>
+                <td>{detail.product.c_description}</td>
+                <td>{detail.product.d_unit_price}</td>
+                <td>{detail.d_rate}</td>
+                <td>{detail.e_qnty}</td>
+                <td>{detail.f_misc}</td>
+                <td>{detail.h_price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+}
 
-  const [formData, setFormData] = useState({
-    quotation_number: "",
-    c_q_date: "",
-    d_submission_date: '',
-    supplier: { supp_code: "" },
-    quotationDetail: [
-      {
-        quote_details_id: "",
-        product: { prod_code: "" },
-        d_rate: "",
-        e_qnty: "",
-        f_misc: "",
-        h_price: ""
-      }
-    ]
-  });
+// Example usage
+const quotationDetailData = [
+  {
+    quote_details_id: 1,
+    product: {
+      prod_code: "Prod-001",
+      b_prod_name: "Monitor",
+      c_description: "AOC Monitor",
+      d_unit_price: 10000,
+      e_category: "Desktop"
+    },
+    d_rate: 9500,
+    e_qnty: 10,
+    f_misc: 0,
+    h_price: 95000
+  },
+  {
+    quote_details_id: 2,
+    product: {
+      prod_code: "Prod-002",
+      b_prod_name: "Mouse",
+      c_description: "Zebronics Mouse",
+      d_unit_price: 1000,
+      e_category: "Desktop"
+    },
+    d_rate: 850,
+    e_qnty: 10,
+    f_misc: 0,
+    h_price: 8500
+  }
+];
 
-  useEffect(() => {
-    fetchQuoteData();
-  }, []);
-
-  const fetchQuoteData = async () => {
-    try {
-      const response = await axios.get(`http://localhost:8088/api/quote/${quotation_no}`);
-      const data = response.data;
-      setFormData(data);
-      console.log(data)
-    } catch (error) {
-      console.log(data)
-      console.error('Error fetching quote data:', error);
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-  };
-
+function App() {
   return (
-    <div>
-      <form>
-        {/* Render other form inputs */}
-        
-      </form>
+    <div className="App">
+      <QuotationDetailTable quotationDetail={quotationDetailData} />
     </div>
   );
-};
+}
 
-export default EditQuote;
+export default App;

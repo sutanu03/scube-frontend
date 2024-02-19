@@ -4,13 +4,15 @@ import { FaEdit } from "react-icons/fa";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import SimpleQuote from './SimpleQuote';
-import EditQuote from './EditQuote';
+import QuotationDetailTable from './EditQuote'
 import axios from 'axios';
-import QuotationDetails from './QuotationDetails';
+import ViewQuotationMaster from './ViewQuotationMaster';
 
 const QuotationTable = ({ quotations, onQuotationClick }) => {
 
   const [parsedData, setparsedData] = useState([])
+
+  const [detail, setDetail] = useState([])
 
   const [show, setShow] = useState(false);
 
@@ -30,12 +32,16 @@ const QuotationTable = ({ quotations, onQuotationClick }) => {
     try {
       const response = await axios.get(`http://localhost:8088/api/quote/read/${quotation_number}`);
       const data = await response.data;
-      console.log("Full data:"+ JSON.stringify(data));
       // Assuming 'data' is the object you received
-console.log("Full data:", data); // This will show you the object structure in the console
+console.log("Full Data:", data); // This will show you the object structure in the console
       setparsedData(data);
 
-      console.log("full data: "+data)
+      const jsonData = JSON.stringify(data);
+      console.log("Full data stringify:"+ jsonData);
+
+      setDetail(jsonData);
+
+      console.log("detail: "+detail)
       //const a = JSON.parse(data);
     // setparsedData(a);
     // console.log("parsed data : "+parsedData)
@@ -47,6 +53,7 @@ console.log("Full data:", data); // This will show you the object structure in t
 
   return (
     <>
+    {/* <p>json data : {detail}</p> */}
     <table className="table border-e-red-50">
       <thead>
         <tr>
@@ -88,9 +95,15 @@ console.log("Full data:", data); // This will show you the object structure in t
         </Modal.Header>
         <Modal.Body>
 
-        {/* <QuotationDetails data={parsedData} /> */}
+        {/* <QuotationDetails data={parsedData} /> <QuotationDetailTable/> */}
 
         {quotation_no}
+
+        <ViewQuotationMaster {...parsedData} />
+
+       {/*  <p>{detail}</p> */}
+        
+          
 
         
         </Modal.Body>

@@ -12,6 +12,58 @@
 
 
 
+/* Updating a 1-level deep object */
+Let's say we have the below object in a React state variable:
+
+const [cat, setCat] = useState({
+    name:'Achilles the 😸',
+    origin: 'Greece 🇬🇷',
+    owner: {
+        name: "Daniel", 
+        age: 38
+    }
+})
+
+/////// To update a 1-level deep property, eq owner.name, we can do: 
+
+setCat(prevCat => ({
+    ...prevCat,
+    owner: {
+        ...prevCat.owner,
+        name: "Daniel the owner of Achilles"
+    }
+}))
+
+////// Updating a 2-levels deep object
+If we have a more complex nested object, like the one below:
+
+const [cat, setCat] = useState({
+    name:'Achilles the 😸',
+    origin: 'Greece 🇬🇷',
+    owner: {
+        name: "Daniel", 
+        age: 38,
+        job: {
+            title: "Software Developer", 
+            location: "At home"
+        }
+    }
+})
+/////We can use the same approach, but the mind the extra deep of the state object:
+
+setCat(prevCat => ({
+    ...prevCat,
+    owner: {
+        ...prevCat.owner,
+        job : {
+            ...prevCat.owner.job,
+            title: 'Cat slave'
+        }
+    }
+}))
+
+
+
 
 
 
