@@ -1,5 +1,6 @@
 // QuotationTable.js
-import React, { useState } from 'react';
+"use client"
+import React, { useEffect, useState } from 'react';
 import { FaEdit } from "react-icons/fa";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -7,12 +8,13 @@ import SimpleQuote from './SimpleQuote';
 import QuotationDetailTable from './EditQuote'
 import axios from 'axios';
 import ViewQuotationMaster from './ViewQuotationMaster';
+import { Bounce, Slide, toast } from 'react-toastify';
 
 const QuotationTable = ({ quotations, onQuotationClick }) => {
 
   const [parsedData, setparsedData] = useState([])
 
-  const [editedData, setEditedData] = useState({});
+  const [editedData, setEditedData] = useState(parsedData);
 
   const [detail, setDetail] = useState([])
 
@@ -63,6 +65,18 @@ const QuotationTable = ({ quotations, onQuotationClick }) => {
     }));
   };
 
+  const onChange = (e, quote_detail_id) => {
+    const { name, value } = e.target
+
+    const editData = parsedData?.map((item) =>
+      item.quote_detail_id === quote_detail_id && name ? { ...item, [name]: value } : item
+    )
+
+    setEditedData(editData.quotationDetail)
+
+    console.log(editData)
+  }
+
 /*   const calculatePrice = (item) => {
     const d_rate = item.d_rate;
     const e_qnty = item.e_qnty;
@@ -79,13 +93,61 @@ const QuotationTable = ({ quotations, onQuotationClick }) => {
         ...editedData[index]
       }))
     };
-    // Now updatedData has the changes, you can do something with it like sending it to an API or updating state
-    setShow(false);
-    console.log('Updated Data:'+ JSON.stringify(updatedData));
+  
+    // Add quotation_number to each quotation detail
+    updatedData.quotationDetail.forEach(detail => {
+      detail.quotation_number = parsedData.quotation_number;
+    });
 
-    alert("Quotation Updated!")
-    // Call a function to handle updating the data
-    // updateData(updatedData);
+
+  
+    console.log(updatedData);
+
+    setShow(false);
+    toast.success('Quotation Updated!', {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Slide,
+      });
+    // Save updated data to the database
+    //saveFormDataToDatabase(updatedData, updatedData.quotation_number);
+  };
+  
+
+  const saveFormDataToDatabase = (data, quotation_number) => {
+    const apiEndpoint = `http://localhost:8088/api/quote/update/${quotation_number}`;
+
+    axios.post(apiEndpoint, data)
+      .then(response => {
+        setShow(false);
+
+        console.log('Form data saved successfully:', response.data);
+
+        toast.success('Quotation Updated!', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Slide,
+          });
+
+       // console.log(data);
+        resetFormData();
+      //  reset();
+      })
+      .catch(error => {
+        console.error('Error saving form data:', error);
+      });
   };
 
 
@@ -142,6 +204,57 @@ const QuotationTable = ({ quotations, onQuotationClick }) => {
         </div>
         <hr/>
 
+        {/* <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Position</th>
+          </tr>
+        </thead>
+        <tbody>
+          {editedData?.quotationDetail?.map(({ quote_detail_id, d_rate, e_qnty, f_misc }) => (
+            <tr key={quote_detail_id}>
+              <td>
+                <input
+                  value={d_rate}
+                  type="number"
+                  onChange={(e) => onChange(e, quote_detail_id)}
+                  placeholder="RaTE"
+                />
+              </td>
+              <td>
+                <input
+                  name="email"
+                  value={e_qnty}
+                  type="number"
+                  onChange={(e) => onChange(e, quote_detail_id)}
+                  placeholder="Qnty"
+                />
+              </td>
+              <td>
+                <input
+                  name="position"
+                  type="text"
+                  value={f_misc}
+                  onChange={(e) => onChange(e, quote_detail_id)}
+                  placeholder="misc"
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table> */}
+
+
+        
+
+
+
+
+
+
+
         <table>
           <thead>
             <tr className='text-center'>
@@ -160,7 +273,8 @@ const QuotationTable = ({ quotations, onQuotationClick }) => {
                   <input
                     type="number"
                     min="99" max="99999"
-                    value={editedData[index]?.d_rate || detail.d_rate}
+                    //value={detail?.d_rate}
+                    value={editedData[index]?.d_rate || detail.d_rate} 
                     onChange={(e) => handleChange(index, 'd_rate', e.target.value)}
                   />
                 </td>

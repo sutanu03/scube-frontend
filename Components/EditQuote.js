@@ -1,55 +1,89 @@
-import React from 'react';
+import { useState } from "react"
 
-class QuotationDetailTable extends React.Component {
-  render() {
-    const { quotationDetail } = this.props;
-
-    return (
-      <div>
-        
-      </div>
-    );
-  }
-}
-
-// Example usage
-const quotationDetailData = [
+const data = [
   {
-    quote_details_id: 1,
-    product: {
-      prod_code: "Prod-001",
-      b_prod_name: "Monitor",
-      c_description: "AOC Monitor",
-      d_unit_price: 10000,
-      e_category: "Desktop"
-    },
-    d_rate: 9500,
-    e_qnty: 10,
-    f_misc: 0,
-    h_price: 95000
+    employeeId: '01',
+    name: 'John Doe',
+    email: 'johndoe@email.com',
+    position: 'Frontend Developer',
   },
   {
-    quote_details_id: 2,
-    product: {
-      prod_code: "Prod-002",
-      b_prod_name: "Mouse",
-      c_description: "Zebronics Mouse",
-      d_unit_price: 1000,
-      e_category: "Desktop"
-    },
-    d_rate: 850,
-    e_qnty: 10,
-    f_misc: 0,
-    h_price: 8500
-  }
-];
+    employeeId: '02',
+    name: 'Sara',
+    email: 'sara@email.com',
+    position: 'HR Executive',
+  },
+  {
+    employeeId: '03',
+    name: 'Mike',
+    email: 'mike@email.com',
+    position: 'Backend Developer',
+  },
+]
 
-function App() {
+const EditQuote = () => {
+  const [employeeData, setEmployeeData] = useState(data)
+
+  const onChange = (e, employeeId) => {
+    const { name, value } = e.target
+
+    const editData = employeeData.map((item) =>
+      item.employeeId === employeeId && name ? { ...item, [name]: value } : item
+    )
+
+    setEmployeeData(editData)
+
+    console.log(editData)
+  }
+
   return (
-    <div className="App">
-      <QuotationDetailTable quotationDetail={quotationDetailData} />
+    <div className="container">
+      <h1 className="title">ReactJS Editable Table</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Position</th>
+          </tr>
+        </thead>
+        <tbody>
+          {employeeData.map(({ employeeId, name, email, position }) => (
+            <tr key={employeeId}>
+              <td>
+                <input
+                  name="name"
+                  value={name}
+                  type="text"
+                  onChange={(e) => onChange(e, employeeId)}
+                  placeholder="Type Name"
+                />
+              </td>
+              <td>
+                <input
+                  name="email"
+                  value={email}
+                  type="email"
+                  onChange={(e) => onChange(e, employeeId)}
+                  placeholder="Type Email"
+                />
+              </td>
+              <td>
+                <input
+                  name="position"
+                  type="text"
+                  value={position}
+                  onChange={(e) => onChange(e, employeeId)}
+                  placeholder="Type Position"
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
-  );
+  )
 }
 
-export default App;
+export default EditQuote
+

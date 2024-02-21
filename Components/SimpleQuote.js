@@ -4,6 +4,7 @@ import axios from 'axios';
 import AddRemoveMultipleInputFields from '@/Components/AddRemoveMultipleInputFields';
 import AdvanceSearch from './AdvanceSearch';
 import QuotationForm from './QuotatonForm';
+import EditQuote from './EditQuote';
 
 const SimpleQuote = ({ onChange }) => {
 
@@ -252,6 +253,7 @@ const handleChange = (e) => {
 
     */}
     <AddRemoveMultipleInputFields updateQuotationDetail={updateQuotationDetail} />
+
       </div>
       <div className="flex text-center align-center justify-end fixed-bottom">
           <button className="bttn" onClick={resetPage}>

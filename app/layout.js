@@ -3,6 +3,9 @@ import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '@/Components/Header'
 import './globals.css'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from './toast';
+
 
 export default function RootLayout({ children }) {
 
@@ -10,6 +13,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Header/>
+        <ToastContainer/>
         {children}
         </body>
     </html>

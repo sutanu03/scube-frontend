@@ -2,6 +2,7 @@
 import { FaSearch } from "react-icons/fa";
 import React, { useState } from 'react';
 import QuotationTable from './QuotationTable';
+import { VscClearAll } from "react-icons/vsc";
 
 const QuotationForm = () => {
   const [supp_code, setSupplierCode] = useState('');
@@ -43,7 +44,10 @@ const QuotationForm = () => {
             <label>Supplier Code :</label>
             <input type="text" value={supp_code} onChange={(e) => setSupplierCode(e.target.value)} className="w-[120px]" required/>
           </div>
-          <div className="flex">
+          <div className="flex gap-1">
+            <button type="button" onClick={resetFormData} className='button bg-slate-700 text-white h-8 rounded-lg w-10 text-center align-middle justify-center'>
+            <VscClearAll />
+            </button>
             <button type="submit" className='button bg-slate-700 text-white h-8 rounded-lg w-10 text-center align-middle justify-center'>
               <FaSearch/>
             </button>
@@ -56,4 +60,8 @@ const QuotationForm = () => {
   );
 };
 
+// refresh page after cancel button to clear everything in the  form
+function resetFormData() {
+  window.location.reload(false);
+}
 export default QuotationForm;
