@@ -5,23 +5,9 @@ import AddRemoveMultipleInputFields from '@/Components/AddRemoveMultipleInputFie
 import AdvanceSearch from './AdvanceSearch';
 import QuotationForm from './QuotatonForm';
 import EditQuote from './EditQuote';
+import { Zoom, toast } from 'react-toastify';
 
 const SimpleQuote = ({ onChange }) => {
-
-
-  // Add a state to manage the visibility of the modal
-const [isModalOpen, setIsModalOpen] = useState(false);
-
-// Function to open the modal
-const openModal = () => {
-  setIsModalOpen(true);
-};
-
-// Function to close the modal
-const closeModal = () => {
-  setIsModalOpen(false);
-};
-
 
   const [formData, setFormData] = useState({
     quotation_number: "",
@@ -75,6 +61,19 @@ const handleChange = (e) => {
       });
 
       setIsQuotationNumberExists(response.data.exists);
+
+/*       toast.error('Quotation number exists!', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Zoom,
+        }); */
+
     } catch (error) {
       console.error('Error checking formData number:', error);
     }
@@ -87,7 +86,17 @@ const handleChange = (e) => {
     // Check if formData number already exists before submitting
     if (isQuotationNumberExists) {
       // Show a message or take appropriate action
-      alert('Quotation number already exists. Please choose a different one.');
+      toast.error('Quotation number exists!', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Zoom,
+        });
       return;
     }
    // setFormData(...formData, quotationDetail.product.prod_code,);
@@ -139,7 +148,6 @@ const handleChange = (e) => {
 
   return (
     <>
-    {/* <AdvanceSearch/> */}
     <QuotationForm/>
 
     <form onSubmit={handleSubmit}>
@@ -157,7 +165,7 @@ const handleChange = (e) => {
       onChange={handleChange}
       required
     />
-    {isQuotationNumberExists && <div style={{ color: 'red', width: '200px'}}>Quotation number already exists!</div>}
+    {isQuotationNumberExists}
     </div>
   </div>
       
@@ -184,74 +192,14 @@ const handleChange = (e) => {
           <label>Supplier Code:</label>
           <SuppDrop onChange={handleSupplierChange} />
         </div>
-        {/* <div className="data-1 d-flex w-1/3">
-          <label className='w-[150px]'>Supplier Name:</label>
-              <span className='w-[250px]text-center mt-1'>TCS</span>
-        </div> */}
-
-     {/*}   <div className="data-1 d-flex w-1/4">
-          <label>Supplier Code:</label>
-          <input type="text" name="supp_code" placeholder='Supplier Code'
-          value={formData.supplier.supp_code}
-           onChange={handleSupplierChange} />
-          
-        </div>
-  */}
 
         </div> 
 <hr/>
-      {/* Add more fields for other supplier details 
-
-
-<SuppDrop onChange={(value) => handleChange({ target: { value } }, 'supp_code')} />
-
-
-<ProdDrop onChange={(prod_code) => handleChange({ target: { value: prod_code } }, 'prod_code')} />
-
-      {formData.quotationDetail.map((detail, index) => (
-        <div key={index}>
-      <h3>Detail {index + 1}</h3>
-      value={detail.price} onChange={(e) => handleQuotationDetailChange(e, price)}
-      <label>Quote Details ID:
-            <input type="text" name="quote_details_id" 
-            value={formData.quotationDetail.quote_details_id} 
-            onChange={handleQuotationDetailChange} />
-          </label>
-                <h2>Quotation Details:</h2>
-      */}
+     
       <hr />
 
 <div className="overflow-scroll h-[320px]">
-  {/*<AddDeleteTableRows/>*/}
-        
-{/*}
-<div className="table-div p-2 overflow-scroll">
-  <table className="table table-bordered" id="myTable">
-    <thead>
-    <tr>
-                            <th scope="col">Item Code</th>
-                            <th scope="col">Rate</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Misc Cost</th>
-                            <th scope="col">Price</th>
-                          </tr>
-    </thead>
-    <tbody>
-
-      <AddRemoveMultipleInputFields/>
-      
-            </tbody>
-            
-
-            
-
-          </table>
-
-</div>
-
-    
-
-    */}
+ 
     <AddRemoveMultipleInputFields updateQuotationDetail={updateQuotationDetail} />
 
       </div>

@@ -105,17 +105,35 @@ const QuotationForm = () => {
           const data = await response.json();
           setQuotationData(data);
           console.log(data);
-          toast.success('All Quotation with this Supp Code!', {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Slide,
-            });
+          if(data == "")
+          {
+            toast.error("Supplier '"+supp_code+"' isn't exist!", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: false,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Slide,
+              });
+          }
+          else{
+
+            toast.success('All Quotation with this Supp Code!', {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: false,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Slide,
+              });
+
+          }
         } catch (error) {
           console.error('Error fetching data:', error);
         }
@@ -147,7 +165,7 @@ const QuotationForm = () => {
 
       
 
-      else if(supp_code === '' && fromDate !== '' && toDate !== '' && quotation_number !== '' || supp_code === '' && fromDate === '' && toDate !== '' && quotation_number !== '' || supp_code === '' && fromDate !== '' && toDate === '' && quotation_number !== '')
+      else if(supp_code === '' && fromDate !== '' && toDate !== '' && quotation_number !== '' || supp_code === '' && fromDate === '' && toDate !== '' && quotation_number !== '' || supp_code === '' && fromDate !== '' && toDate === '' && quotation_number !== '' || fromDate !== '' || toDate !== '')
       {
           toast.warning("You can't enter Quote Number with fromDate and toDate!", {
             position: "top-center",
