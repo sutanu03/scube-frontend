@@ -13,6 +13,52 @@ const QuotationForm = () => {
   const [toDate, setToDate] = useState('');
   const [quotation, setQuotationData] = useState([]);
 
+
+  function validateDates(fromDate, toDate) {
+    // Convert the fromDate and toDate strings to Date objects
+    var fromDateObj = new Date(fromDate);
+    var toDateObj = new Date(toDate);
+
+    // Check if fromDate is greater than toDate
+    if (fromDateObj > toDateObj) {
+        
+        toast.error('Invalid dates. Please check again.', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Slide,
+          });
+
+          return false; // Invalid
+    }
+
+    // Check if toDate is less than fromDate
+    if (toDateObj < fromDateObj) {
+
+        toast.error('Invalid dates. Please check again.', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Slide,
+          });
+
+          return false; // Invalid
+    }
+
+      return true; // Valid
+}
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -141,27 +187,53 @@ const QuotationForm = () => {
 
       else if(supp_code !== '' && fromDate !== '' && toDate !== '' && quotation_number === '')
       {
-        try {
-          const response = await fetch(`http://localhost:8088/api/quote/search/supp_code/advance?supp_code=${supp_code}&fromDate=${fromDate}&toDate=${toDate}`);
-          const data = await response.json();
-          setQuotationData(data);
-          console.log(data);
-          toast.success('All quotation with this Supp Code and within this dates!', {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Slide,
-            });
-        } catch (error) {
-          console.error('Error fetching data:', error);
+
+        if (validateDates(fromDate, toDate) === true) {
+
+          try {
+            const response = await fetch(`http://localhost:8088/api/quote/search/supp_code/advance?supp_code=${supp_code}&fromDate=${fromDate}&toDate=${toDate}`);
+            const data = await response.json();
+            setQuotationData(data);
+            console.log(data);
+            if(data == "")
+          {
+            toast.error("No Data exist with this combination!", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: false,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Slide,
+              });
+          }
+          else {
+
+            toast.success('All quotation with this Supp Code and within this dates!', {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: false,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Slide,
+              });
+          } 
         }
-        
+          catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        } 
+        else {
+
+          console.log("Something went wrong!");
       }
+
+    }
 
       
 
