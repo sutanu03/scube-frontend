@@ -110,7 +110,7 @@ const QuotationForm = () => {
           console.log(data);
           if(data == "")
           {
-            toast.error("Quote Number '"+quotation_number+"' isn't exist!", {
+            toast.error("Quotation Number '"+quotation_number+"' isn't exist!", {
               position: "top-center",
               autoClose: 2000,
               hideProgressBar: false,
@@ -124,7 +124,7 @@ const QuotationForm = () => {
           }
           else{
 
-            toast.success("Quote Number '"+quotation_number+"' ,that you've asked for!", {
+            toast.success("Quotation Number '"+quotation_number+"' ,that you've asked for!", {
               position: "top-center",
               autoClose: 3000,
               hideProgressBar: false,
