@@ -3,7 +3,7 @@ import SuppDrop from '@/Components/SuppDrop';
 import axios from 'axios';
 import AddRemoveMultipleInputFields from '@/Components/AddRemoveMultipleInputFields';
 import AdvanceSearch from './AdvanceSearch';
-import QuotationForm from './QuotatonForm';
+import QuotationForm from './QuotationForm';
 import EditQuote from './EditQuote';
 import { Zoom, toast } from 'react-toastify';
 
