@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import ProdDrop from '@/Components/ProdDrop'
 import SuppDrop from '@/Components/SuppDrop';
 import axios from 'axios';
-import AddDeleteTableRows from '@/Components/AddRemoveMultipleInputFields';
-import TableRow from '@/Components/TableRow';
 import Detail from '@/app/Quotation/Detail';
 
 const QuoteForm = ({ onChange }) => {

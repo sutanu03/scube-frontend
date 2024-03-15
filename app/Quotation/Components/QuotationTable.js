@@ -4,10 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { FaEdit } from "react-icons/fa";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import SimpleQuote from './SimpleQuote';
-import QuotationDetailTable from './EditQuote'
 import axios from 'axios';
-import ViewQuotationMaster from './ViewQuotationMaster';
 import { Bounce, Slide, toast } from 'react-toastify';
 
 const QuotationTable = ({ quotations, onQuotationClick }) => {
@@ -104,25 +101,13 @@ const QuotationTable = ({ quotations, onQuotationClick }) => {
     console.log(updatedData);
 
     setShow(false);
-    toast.success('Quotation Updated!', {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Slide,
-      });
     // Save updated data to the database
-    //saveFormDataToDatabase(updatedData, updatedData.quotation_number);
+    saveFormDataToDatabase(updatedData, updatedData.quotation_number);
   };
   
 
   const saveFormDataToDatabase = (data, quotation_number) => {
     const apiEndpoint = `http://localhost:8088/api/quote/update/${quotation_number}`;
-
     axios.post(apiEndpoint, data)
       .then(response => {
         setShow(false);
@@ -130,7 +115,7 @@ const QuotationTable = ({ quotations, onQuotationClick }) => {
         console.log('Form data saved successfully:', response.data);
 
         toast.success('Quotation Updated!', {
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -140,9 +125,10 @@ const QuotationTable = ({ quotations, onQuotationClick }) => {
           theme: "light",
           transition: Slide,
           });
-
+          console.log(JSON.stringify(data));
+        //  alert("w8")
        // console.log(data);
-        resetFormData();
+       // resetFormData();
       //  reset();
       })
       .catch(error => {
@@ -153,7 +139,7 @@ const QuotationTable = ({ quotations, onQuotationClick }) => {
 
   return (
     <>
-    {/* <p>json data : {detail}</p> */}
+    
     <table className="table border-e-red-50">
       <thead>
         <tr>
@@ -203,57 +189,6 @@ const QuotationTable = ({ quotations, onQuotationClick }) => {
         <h2>Supplier Code : {parsedData?.supplier?.supp_code}</h2>      
         </div>
         <hr/>
-
-        {/* <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Position</th>
-          </tr>
-        </thead>
-        <tbody>
-          {editedData?.quotationDetail?.map(({ quote_detail_id, d_rate, e_qnty, f_misc }) => (
-            <tr key={quote_detail_id}>
-              <td>
-                <input
-                  value={d_rate}
-                  type="number"
-                  onChange={(e) => onChange(e, quote_detail_id)}
-                  placeholder="RaTE"
-                />
-              </td>
-              <td>
-                <input
-                  name="email"
-                  value={e_qnty}
-                  type="number"
-                  onChange={(e) => onChange(e, quote_detail_id)}
-                  placeholder="Qnty"
-                />
-              </td>
-              <td>
-                <input
-                  name="position"
-                  type="text"
-                  value={f_misc}
-                  onChange={(e) => onChange(e, quote_detail_id)}
-                  placeholder="misc"
-                />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
-
-
-        
-
-
-
-
-
-
 
         <table>
           <thead>
@@ -314,5 +249,11 @@ const QuotationTable = ({ quotations, onQuotationClick }) => {
     </>
   );
 };
+
+
+// refresh page after cancel button to clear everything in the  form
+function resetFormData() {
+  window.location.reload(false);
+}
 
 export default QuotationTable;

@@ -1,9 +1,11 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react';
+import CreatePO from './Components/CreatePO'
 
 const PO = () => {
   return (
     <div>
-      <h1>PO Page</h1>
+      <CreatePO/>
     </div>
   )
 }

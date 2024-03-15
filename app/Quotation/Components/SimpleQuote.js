@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import SuppDrop from '@/Components/SuppDrop';
 import axios from 'axios';
-import AddRemoveMultipleInputFields from '@/Components/AddRemoveMultipleInputFields';
-import AdvanceSearch from './AdvanceSearch';
+import AddRemoveMultipleInputFields from '@/app/Quotation/Components/AddRemoveMultipleInputFields';
 import QuotationForm from './QuotationForm';
-import EditQuote from './EditQuote';
 import { Zoom, toast } from 'react-toastify';
 
 const SimpleQuote = ({ onChange }) => {
@@ -21,7 +19,7 @@ const SimpleQuote = ({ onChange }) => {
         d_rate: "",
         e_qnty: "",
         f_misc: "",
-        g_price: ""
+        h_price: ""
       }
     ]
   });
@@ -118,7 +116,7 @@ const handleChange = (e) => {
   console.log(JSON.stringify(t));
   
   console.log(t.supplier.supp_code);
-  //  saveFormDataToDatabase(t);  
+    saveFormDataToDatabase(t);  
     console.log('Form submitted:', t);
    // saveFormDataToDatabase2(formData2);
   };

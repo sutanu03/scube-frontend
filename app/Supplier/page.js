@@ -1,8 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Modals from '@/Components/Modals';
-import ShowSupplier from '@/Components/ShowSupplier';
 
 const Supplier = () => {
   const [formData, setFormData] = useState({
@@ -54,16 +52,8 @@ const Supplier = () => {
     alert("Supplier added!");
   }
 
-  function modifySupp() {
-
-  }
-
   return (
     <div>
-      <div className='flex text-center align-center justify-end m-1'>
-        
-      <Modals/>
-      </div>
     <div className="flex w-full text-center justify-around align-middle p-2 items-center">
       <div className="w-auto">
         <img

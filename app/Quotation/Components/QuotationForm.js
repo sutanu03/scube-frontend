@@ -153,9 +153,9 @@ const QuotationForm = () => {
           console.log(data);
           if(data == "")
           {
-            toast.error("Supplier '"+supp_code+"' isn't exist!", {
+            toast.error("Supplier '"+supp_code+"' isn't exist or quotation with this supplier code isn't exists!", {
               position: "top-center",
-              autoClose: 2000,
+              autoClose: 5000,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: false,

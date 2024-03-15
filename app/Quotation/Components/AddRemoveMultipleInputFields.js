@@ -5,7 +5,7 @@ import { IoMdAddCircle } from "react-icons/io";
 
 function AddRemoveMultipleInputFields({ onChange, updateQuotationDetail }) {
   const [inputFields, setInputFields] = useState([
-    { product: "", d_rate: "", e_qnty: "", f_misc: "", g_price: "" }
+    { product: "", d_rate: "", e_qnty: "", f_misc: "", h_price: "" }
   ]);
 
   const addInputField = (e) => {
@@ -20,7 +20,7 @@ function AddRemoveMultipleInputFields({ onChange, updateQuotationDetail }) {
     if (isPreviousRowFilled) {
       setInputFields([
         ...inputFields,
-        { product: "", d_rate: "", e_qnty: "", f_misc: "", g_price: "" }
+        { product: "", d_rate: "", e_qnty: "", f_misc: "", h_price: "" }
       ]);
     } else {
       alert("Please fill the previous row first.");
@@ -44,10 +44,10 @@ function AddRemoveMultipleInputFields({ onChange, updateQuotationDetail }) {
     const list = [...inputFields];
     list[index][fieldName] = value;
 
-    // Calculate g_price dynamically
+    // Calculate h_price dynamically
     const { d_rate, e_qnty, f_misc } = list[index];
     const calculatedPrice = parseFloat(d_rate) * parseFloat(e_qnty) + parseFloat(f_misc);
-    list[index]["g_price"] = isNaN(calculatedPrice) ? "" : calculatedPrice;
+    list[index]["h_price"] = isNaN(calculatedPrice) ? "" : calculatedPrice;
 
       setInputFields(list);
       updateQuotationDetail(list);    
@@ -58,10 +58,9 @@ function AddRemoveMultipleInputFields({ onChange, updateQuotationDetail }) {
       <div className="flex w-full text-black bg-slate-200 font-semibold align-middle items-center">
               <h2 className="w-[10%] ml-4">Product Code</h2>
               <h2 className="w-[29%] text-center">Product Description</h2>
-              <h2 className='w-[10%] text-center ml-12'>Unit Price</h2>
-              <h2 className='w-[10%] text-center ml-8'>Quantity</h2>
-              <h2 className='w-[10%] text-center ml-8'>Misc</h2>
-              <h2 className='w-[10%] text-center px-16'>Discount</h2>
+              <h2 className='w-[10%] text-center ml-16'>Unit Price</h2>
+              <h2 className='w-[10%] text-center ml-12'>Quantity</h2>
+              <h2 className='w-[10%] text-center ml-12'>Misc</h2>
               <h2 className='w-[15%] text-center'>Price</h2>
               <div className=" flex w-[5%] flex-row-reverse mr-1">
               <button className="btn btn-success h-8" onClick={addInputField}>
@@ -74,7 +73,7 @@ function AddRemoveMultipleInputFields({ onChange, updateQuotationDetail }) {
         <br/>
       <div className="row flex justify-between">
         {inputFields.map((data, index) => {
-          const { product, d_rate, e_qnty, f_misc, g_price } = data;
+          const { product, d_rate, e_qnty, f_misc, h_price } = data;
           return (
             <div className="row my-1 w-full flex justify-between" key={index}>
               <div className="flex justify-between w-full align-middle items-center">
@@ -128,7 +127,7 @@ function AddRemoveMultipleInputFields({ onChange, updateQuotationDetail }) {
                   required
                 />
               </div>
-              <div className="w-[10%]">
+              {/* <div className="w-[10%]">
                 <input
                   type="number"
                   name="discount"
@@ -136,12 +135,12 @@ function AddRemoveMultipleInputFields({ onChange, updateQuotationDetail }) {
                   className="form-control text-right"
                   readOnly
                 />
-              </div>
+              </div> */}
               <div className="w-[10%]">
                 <input
                   type="number"
-                  value={g_price}
-                  name="g_price"
+                  value={h_price}
+                  name="h_price"
                   className="form-control text-right"
                   readOnly // Make it read-only
                   required

@@ -10,18 +10,18 @@ function Header() {
       
       <Link href="/">
       <h1 className="text-2xl font-bold">
-          SG Home  
+          SG 
         </h1>
       </Link>
       
       <div className="flex gap-6">
       <Link href="/Supplier">Supplier</Link>
       <Link href="/Product">Product</Link>
-      <Link href="">Assign User</Link>
+      {/* <Link href="">Assign User</Link> */}
       <Link href="/Quotation">Quotation</Link>
       <Link href="/PO">Purchase Order</Link>
       <Link href="/Invoice">Invoice</Link>
-      <Link href="">Logout</Link>
+      {/* <Link href="">Logout</Link> */}
       </div>
      
     </div>
